@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using WhatsAppBotAPi.Services.Response;
 
 namespace WhatsAppBotAPi.Services.Helpers
@@ -11,15 +6,15 @@ namespace WhatsAppBotAPi.Services.Helpers
     public static class CommonHelper
     {
         /// <summary>
-		/// This is to prep the phone number to be in the correct length and form for whatsapp.
+        /// This is to prep the phone number to be in the correct length and form for whatsapp.
         /// 1. If the Phone number is Null return -1
         /// 2. Number must start with the country code assume South Africa (27)
         /// 3. For South Africa the number must be minimum 9 digits without the country code and any leading zeros if less return -1
         /// 4. If the number is more than 9 digits then assume the number is correct
-		/// </summary>
-		/// <param name="phoneNumber"></param>
-		/// <returns>String: a formated number for WhatsApp</returns>
-		
+        /// </summary>
+        /// <param name="phoneNumber"></param>
+        /// <returns>String: a formated number for WhatsApp</returns>
+
         public static string PrepNumber(string phoneNumber)
         {
             // Step 1: Strip out any character that is not a digit

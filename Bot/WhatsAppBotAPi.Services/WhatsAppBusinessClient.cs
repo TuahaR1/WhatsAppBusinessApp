@@ -1,16 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Polly;
 using Polly.Extensions.Http;
-using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Net;
-using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
-using System.Threading;
-using System.Threading.Tasks;
 using WhatsAppBotAPi.Services.AccountMigration.Requests;
 using WhatsAppBotAPi.Services.BlockUser.Requests;
 using WhatsAppBotAPi.Services.BusinessProfile.Requests;
@@ -76,12 +70,12 @@ namespace WhatsAppBotAPi.Services
             _whatsAppConfig = whatsAppConfig;
         }
 
-		/// <summary>
-		/// Initialize WhatsAppBusinessClient with dependency injection
-		/// </summary>
-		/// <param name="httpClient">httpclient object</param>
-		/// <param name="whatsAppConfig">WhatsAppBusiness configuration</param>
-		public WhatsAppBusinessClient(HttpClient httpClient, WhatsAppConfig whatsAppConfig)
+        /// <summary>
+        /// Initialize WhatsAppBusinessClient with dependency injection
+        /// </summary>
+        /// <param name="httpClient">httpclient object</param>
+        /// <param name="whatsAppConfig">WhatsAppBusiness configuration</param>
+        public WhatsAppBusinessClient(HttpClient httpClient, WhatsAppConfig whatsAppConfig)
         {
             _httpClient = httpClient;
             _whatsAppConfig = whatsAppConfig;
@@ -90,56 +84,56 @@ namespace WhatsAppBotAPi.Services
         public void SetWhatsAppBusinessConfig(WhatsAppConfig cloudApiConfig)
         {
             _whatsAppConfig = cloudApiConfig;
-		}
+        }
 
-		/// <summary>
-		/// Use this endpoint to block a list of WhatsApp user numbers.
-		/// </summary>
-		/// <param name="blockUserRequest">Block User Request</param>
-		/// <param name="cloudApiConfig">Custom cloud api config</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>BlockUserResponse</returns>
-		public BlockUserResponse BlockUser(BlockUserRequest blockUserRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        /// <summary>
+        /// Use this endpoint to block a list of WhatsApp user numbers.
+        /// </summary>
+        /// <param name="blockUserRequest">Block User Request</param>
+        /// <param name="cloudApiConfig">Custom cloud api config</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>BlockUserResponse</returns>
+        public BlockUserResponse BlockUser(BlockUserRequest blockUserRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
         {
-			if (cloudApiConfig is not null)
-			{
-				_whatsAppConfig = cloudApiConfig;
-			}
+            if (cloudApiConfig is not null)
+            {
+                _whatsAppConfig = cloudApiConfig;
+            }
 
-			var builder = new StringBuilder();
+            var builder = new StringBuilder();
 
-			builder.Append(WhatsAppBusinessRequestEndpoint.BlockUser);
-			builder.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
+            builder.Append(WhatsAppBusinessRequestEndpoint.BlockUser);
+            builder.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
 
-			var formattedWhatsAppEndpoint = builder.ToString();
-			return WhatsAppBusinessPostAsync<BlockUserResponse>(formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
-		}
+            var formattedWhatsAppEndpoint = builder.ToString();
+            return WhatsAppBusinessPostAsync<BlockUserResponse>(formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
+        }
 
-		/// <summary>
-		/// Use this endpoint to block a list of WhatsApp user numbers.
-		/// </summary>
-		/// <param name="blockUserRequest">Block User Request</param>
-		/// <param name="cloudApiConfig">Custom cloud api config</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>BlockUserResponse</returns>
-		public async Task<BlockUserResponse> BlockUserAsync(BlockUserRequest blockUserRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
-		{
-			if (cloudApiConfig is not null)
-			{
-				_whatsAppConfig = cloudApiConfig;
-			}
+        /// <summary>
+        /// Use this endpoint to block a list of WhatsApp user numbers.
+        /// </summary>
+        /// <param name="blockUserRequest">Block User Request</param>
+        /// <param name="cloudApiConfig">Custom cloud api config</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>BlockUserResponse</returns>
+        public async Task<BlockUserResponse> BlockUserAsync(BlockUserRequest blockUserRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        {
+            if (cloudApiConfig is not null)
+            {
+                _whatsAppConfig = cloudApiConfig;
+            }
 
-			var builder = new StringBuilder();
+            var builder = new StringBuilder();
 
-			builder.Append(WhatsAppBusinessRequestEndpoint.BlockUser);
-			builder.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
+            builder.Append(WhatsAppBusinessRequestEndpoint.BlockUser);
+            builder.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
 
-			var formattedWhatsAppEndpoint = builder.ToString();
-			return await WhatsAppBusinessPostAsync<BlockUserResponse>(formattedWhatsAppEndpoint, cancellationToken);
-		}
+            var formattedWhatsAppEndpoint = builder.ToString();
+            return await WhatsAppBusinessPostAsync<BlockUserResponse>(formattedWhatsAppEndpoint, cancellationToken);
+        }
 
 
-		public BaseSuccessResponse ConfigureConversationalCommands(ConversationalComponentCommand conversationalComponentCommand, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        public BaseSuccessResponse ConfigureConversationalCommands(ConversationalComponentCommand conversationalComponentCommand, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
         {
             if (cloudApiConfig is not null)
             {
@@ -250,13 +244,13 @@ namespace WhatsAppBotAPi.Services
 
             var formattedWhatsAppEndpoint = builder.ToString();
 
-			QRCodeMessageRequest qRCodeMessageRequest = new QRCodeMessageRequest
-			{
-				PrefilledMessage = messageText,
-				GenerateQRImage = qrImageFormat
-			};
+            QRCodeMessageRequest qRCodeMessageRequest = new QRCodeMessageRequest
+            {
+                PrefilledMessage = messageText,
+                GenerateQRImage = qrImageFormat
+            };
 
-			return WhatsAppBusinessPostAsync<QRCodeMessageResponse>(qRCodeMessageRequest, formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
+            return WhatsAppBusinessPostAsync<QRCodeMessageResponse>(qRCodeMessageRequest, formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
         }
 
         /// <summary>
@@ -281,12 +275,12 @@ namespace WhatsAppBotAPi.Services
             var formattedWhatsAppEndpoint = builder.ToString();
 
             QRCodeMessageRequest qRCodeMessageRequest = new QRCodeMessageRequest
-			{
-				PrefilledMessage = messageText,
-				GenerateQRImage = qrImageFormat
-			};
+            {
+                PrefilledMessage = messageText,
+                GenerateQRImage = qrImageFormat
+            };
 
-			return await WhatsAppBusinessPostAsync<QRCodeMessageResponse>(qRCodeMessageRequest, formattedWhatsAppEndpoint, cancellationToken);
+            return await WhatsAppBusinessPostAsync<QRCodeMessageResponse>(qRCodeMessageRequest, formattedWhatsAppEndpoint, cancellationToken);
         }
 
         /// <summary>
@@ -367,14 +361,14 @@ namespace WhatsAppBotAPi.Services
             return await WhatsAppBusinessPostAsync<BaseSuccessResponse>(formattedWhatsAppEndpoint, cancellationToken);
         }
 
-		/// <summary>
-		/// Create Whatsapp template message
-		/// </summary>
-		/// <param name="whatsAppBusinessAccountId">Whatsapp Business Account Id</param>
-		/// <param name="template">Message template type</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>Template Message Creation Response</returns>
-		public async Task<TemplateMessageCreationResponse> CreateTemplateMessageAsync(string whatsAppBusinessAccountId, object template, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        /// <summary>
+        /// Create Whatsapp template message
+        /// </summary>
+        /// <param name="whatsAppBusinessAccountId">Whatsapp Business Account Id</param>
+        /// <param name="template">Message template type</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>Template Message Creation Response</returns>
+        public async Task<TemplateMessageCreationResponse> CreateTemplateMessageAsync(string whatsAppBusinessAccountId, object template, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
         {
             if (cloudApiConfig is not null)
             {
@@ -382,8 +376,8 @@ namespace WhatsAppBotAPi.Services
             }
 
             var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.CreateTemplateMessage.Replace("{{WABA-ID}}", whatsAppBusinessAccountId);
-			return await WhatsAppBusinessPostAsync<TemplateMessageCreationResponse>(template, formattedWhatsAppEndpoint, cancellationToken);
-		}
+            return await WhatsAppBusinessPostAsync<TemplateMessageCreationResponse>(template, formattedWhatsAppEndpoint, cancellationToken);
+        }
 
         /// <summary>
 		/// Create Whatsapp template message
@@ -418,8 +412,8 @@ namespace WhatsAppBotAPi.Services
             }
 
             var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.CreateTemplateMessage.Replace("{{WABA-ID}}", whatsAppBusinessAccountId);
-			return WhatsAppBusinessPostAsync<TemplateMessageCreationResponse>(template, formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
-		}
+            return WhatsAppBusinessPostAsync<TemplateMessageCreationResponse>(template, formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
+        }
 
         /// <summary>
         /// Create Whatsapp template message
@@ -537,14 +531,14 @@ namespace WhatsAppBotAPi.Services
             return await WhatsAppBusinessDeleteAsync<BaseSuccessResponse>(formattedWhatsAppEndpoint, cancellationToken, isHeaderAccessTokenProvided: true);
         }
 
-		/// <summary>
-		/// Delete Message Template By Template Name
-		/// </summary>
-		/// <param name="whatsAppBusinessAccountId">Whatsapp Business Account Id</param>
-		/// <param name="templateName">Template Name</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>BaseSuccessResponse</returns>
-		public async Task<BaseSuccessResponse> DeleteTemplateByNameAsync(string whatsAppBusinessAccountId, string templateName, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        /// <summary>
+        /// Delete Message Template By Template Name
+        /// </summary>
+        /// <param name="whatsAppBusinessAccountId">Whatsapp Business Account Id</param>
+        /// <param name="templateName">Template Name</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>BaseSuccessResponse</returns>
+        public async Task<BaseSuccessResponse> DeleteTemplateByNameAsync(string whatsAppBusinessAccountId, string templateName, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
         {
             if (cloudApiConfig is not null)
             {
@@ -553,22 +547,22 @@ namespace WhatsAppBotAPi.Services
 
             var builder = new StringBuilder();
 
-			builder.Append(WhatsAppBusinessRequestEndpoint.GetTemplateByName);
-			builder.Replace("{{WABA-ID}}", whatsAppBusinessAccountId);
-			builder.Replace("{{TEMPLATE_NAME}}", templateName);
+            builder.Append(WhatsAppBusinessRequestEndpoint.GetTemplateByName);
+            builder.Replace("{{WABA-ID}}", whatsAppBusinessAccountId);
+            builder.Replace("{{TEMPLATE_NAME}}", templateName);
 
-			var formattedWhatsAppEndpoint = builder.ToString();
-			return await WhatsAppBusinessDeleteAsync<BaseSuccessResponse>(formattedWhatsAppEndpoint, cancellationToken);
-		}
+            var formattedWhatsAppEndpoint = builder.ToString();
+            return await WhatsAppBusinessDeleteAsync<BaseSuccessResponse>(formattedWhatsAppEndpoint, cancellationToken);
+        }
 
-		/// <summary>
-		/// Delete Message Template By Template Name
-		/// </summary>
-		/// <param name="whatsAppBusinessAccountId">Whatsapp Business Account Id</param>
-		/// <param name="templateName">Template Name</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>BaseSuccessResponse</returns>
-		public BaseSuccessResponse DeleteTemplateByName(string whatsAppBusinessAccountId, string templateName, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        /// <summary>
+        /// Delete Message Template By Template Name
+        /// </summary>
+        /// <param name="whatsAppBusinessAccountId">Whatsapp Business Account Id</param>
+        /// <param name="templateName">Template Name</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>BaseSuccessResponse</returns>
+        public BaseSuccessResponse DeleteTemplateByName(string whatsAppBusinessAccountId, string templateName, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
         {
             if (cloudApiConfig is not null)
             {
@@ -577,23 +571,23 @@ namespace WhatsAppBotAPi.Services
 
             var builder = new StringBuilder();
 
-			builder.Append(WhatsAppBusinessRequestEndpoint.GetTemplateByName);
-			builder.Replace("{{WABA-ID}}", whatsAppBusinessAccountId);
-			builder.Replace("{{TEMPLATE_NAME}}", templateName);
+            builder.Append(WhatsAppBusinessRequestEndpoint.GetTemplateByName);
+            builder.Replace("{{WABA-ID}}", whatsAppBusinessAccountId);
+            builder.Replace("{{TEMPLATE_NAME}}", templateName);
 
-			var formattedWhatsAppEndpoint = builder.ToString();
-			return WhatsAppBusinessDeleteAsync<BaseSuccessResponse>(formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
-		}
+            var formattedWhatsAppEndpoint = builder.ToString();
+            return WhatsAppBusinessDeleteAsync<BaseSuccessResponse>(formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
+        }
 
-		/// <summary>
-		/// Delete Message Template by Template Id
-		/// </summary>
-		/// <param name="whatsAppBusinessAccountId">Whatsapp Business Account Id</param>
-		/// <param name="templateId">Template Id</param>
-		/// <param name="templateName">Template Name</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>BaseSuccessResponse</returns>
-		public async Task<BaseSuccessResponse> DeleteTemplateByIdAsync(string whatsAppBusinessAccountId, string templateId, string templateName, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        /// <summary>
+        /// Delete Message Template by Template Id
+        /// </summary>
+        /// <param name="whatsAppBusinessAccountId">Whatsapp Business Account Id</param>
+        /// <param name="templateId">Template Id</param>
+        /// <param name="templateName">Template Name</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>BaseSuccessResponse</returns>
+        public async Task<BaseSuccessResponse> DeleteTemplateByIdAsync(string whatsAppBusinessAccountId, string templateId, string templateName, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
         {
             if (cloudApiConfig is not null)
             {
@@ -602,24 +596,24 @@ namespace WhatsAppBotAPi.Services
 
             var builder = new StringBuilder();
 
-			builder.Append(WhatsAppBusinessRequestEndpoint.DeleteTemplateMessage);
-			builder.Replace("{{WABA-ID}}", whatsAppBusinessAccountId);
+            builder.Append(WhatsAppBusinessRequestEndpoint.DeleteTemplateMessage);
+            builder.Replace("{{WABA-ID}}", whatsAppBusinessAccountId);
             builder.Replace("{{HSM_ID}}", templateId);
-			builder.Replace("{{NAME}}", templateName);
+            builder.Replace("{{NAME}}", templateName);
 
-			var formattedWhatsAppEndpoint = builder.ToString();
-			return await WhatsAppBusinessDeleteAsync<BaseSuccessResponse>(formattedWhatsAppEndpoint, cancellationToken);
-		}
+            var formattedWhatsAppEndpoint = builder.ToString();
+            return await WhatsAppBusinessDeleteAsync<BaseSuccessResponse>(formattedWhatsAppEndpoint, cancellationToken);
+        }
 
-		/// <summary>
-		/// Delete Message Template by Template Id
-		/// </summary>
-		/// <param name="whatsAppBusinessAccountId">Whatsapp Business Account Id</param>
-		/// <param name="templateId">Template Id</param>
-		/// <param name="templateName">Template Name</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>BaseSuccessResponse</returns>
-		public BaseSuccessResponse DeleteTemplatebyId(string whatsAppBusinessAccountId, string templateId, string templateName, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        /// <summary>
+        /// Delete Message Template by Template Id
+        /// </summary>
+        /// <param name="whatsAppBusinessAccountId">Whatsapp Business Account Id</param>
+        /// <param name="templateId">Template Id</param>
+        /// <param name="templateName">Template Name</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>BaseSuccessResponse</returns>
+        public BaseSuccessResponse DeleteTemplatebyId(string whatsAppBusinessAccountId, string templateId, string templateName, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
         {
             if (cloudApiConfig is not null)
             {
@@ -628,22 +622,22 @@ namespace WhatsAppBotAPi.Services
 
             var builder = new StringBuilder();
 
-			builder.Append(WhatsAppBusinessRequestEndpoint.DeleteTemplateMessage);
-			builder.Replace("{{WABA-ID}}", whatsAppBusinessAccountId);
-			builder.Replace("{{HSM_ID}}", templateId);
-			builder.Replace("{{NAME}}", templateName);
+            builder.Append(WhatsAppBusinessRequestEndpoint.DeleteTemplateMessage);
+            builder.Replace("{{WABA-ID}}", whatsAppBusinessAccountId);
+            builder.Replace("{{HSM_ID}}", templateId);
+            builder.Replace("{{NAME}}", templateName);
 
-			var formattedWhatsAppEndpoint = builder.ToString();
-			return WhatsAppBusinessDeleteAsync<BaseSuccessResponse>(formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
-		}
+            var formattedWhatsAppEndpoint = builder.ToString();
+            return WhatsAppBusinessDeleteAsync<BaseSuccessResponse>(formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
+        }
 
-		/// <summary>
-		/// If you don’t want an application to receive webhooks for a given WhatsApp Business Account anymore you can delete the subscription.
-		/// </summary>
-		/// <param name="whatsAppBusinessAccountId">Your WhatsApp Business Account (WABA) ID.</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>BaseSuccessResponse</returns>
-		public BaseSuccessResponse DeleteWABASubscription(string whatsAppBusinessAccountId, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        /// <summary>
+        /// If you don’t want an application to receive webhooks for a given WhatsApp Business Account anymore you can delete the subscription.
+        /// </summary>
+        /// <param name="whatsAppBusinessAccountId">Your WhatsApp Business Account (WABA) ID.</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>BaseSuccessResponse</returns>
+        public BaseSuccessResponse DeleteWABASubscription(string whatsAppBusinessAccountId, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
         {
             if (cloudApiConfig is not null)
             {
@@ -713,12 +707,12 @@ namespace WhatsAppBotAPi.Services
         /// <returns>byte[]</returns>
         public byte[] DownloadMedia(string mediaUrl, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
         {
-			if (cloudApiConfig is not null)
-			{
-				_whatsAppConfig = cloudApiConfig;
-			}
+            if (cloudApiConfig is not null)
+            {
+                _whatsAppConfig = cloudApiConfig;
+            }
 
-			string formattedWhatsAppEndpoint;
+            string formattedWhatsAppEndpoint;
             formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.DownloadMedia.Replace("{{Media-URL}}", mediaUrl);
             return WhatsAppBusinessGetAsync(formattedWhatsAppEndpoint, _whatsAppConfig.AppName, _whatsAppConfig.Version, cancellationToken).GetAwaiter().GetResult();
         }
@@ -731,41 +725,41 @@ namespace WhatsAppBotAPi.Services
         /// <returns>byte[]</returns>
         public async Task<byte[]> DownloadMediaAsync(string mediaUrl, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
         {
-			if (cloudApiConfig is not null)
-			{
-				_whatsAppConfig = cloudApiConfig;
-			}
+            if (cloudApiConfig is not null)
+            {
+                _whatsAppConfig = cloudApiConfig;
+            }
 
-			string formattedWhatsAppEndpoint;
+            string formattedWhatsAppEndpoint;
             formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.DownloadMedia.Replace("{{Media-URL}}", mediaUrl);
-            return await WhatsAppBusinessGetAsync(formattedWhatsAppEndpoint, _whatsAppConfig.AppName.Replace(" ","_"), _whatsAppConfig.Version, cancellationToken);
+            return await WhatsAppBusinessGetAsync(formattedWhatsAppEndpoint, _whatsAppConfig.AppName.Replace(" ", "_"), _whatsAppConfig.Version, cancellationToken);
         }
 
-		/// <summary>
-		/// Edit Message Template for update
-		/// </summary>
-		/// <param name="messageTemplate">MessageTemplate Object</param>
-		/// <param name="templateId">Template Id</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>BaseSuccessResponse</returns>
-		public async Task<BaseSuccessResponse> EditTemplateAsync(object messageTemplate, string templateId, CancellationToken cancellationToken = default)
+        /// <summary>
+        /// Edit Message Template for update
+        /// </summary>
+        /// <param name="messageTemplate">MessageTemplate Object</param>
+        /// <param name="templateId">Template Id</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>BaseSuccessResponse</returns>
+        public async Task<BaseSuccessResponse> EditTemplateAsync(object messageTemplate, string templateId, CancellationToken cancellationToken = default)
         {
-			var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.GetTemplateById.Replace("{{TEMPLATE_ID}}", templateId);
-			return await WhatsAppBusinessPostAsync<BaseSuccessResponse>(messageTemplate, formattedWhatsAppEndpoint, cancellationToken);
-		}
+            var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.GetTemplateById.Replace("{{TEMPLATE_ID}}", templateId);
+            return await WhatsAppBusinessPostAsync<BaseSuccessResponse>(messageTemplate, formattedWhatsAppEndpoint, cancellationToken);
+        }
 
-		/// <summary>
-		/// Edit Message Template for update
-		/// </summary>
-		/// <param name="messageTemplate">MessageTemplate Object</param>
-		/// <param name="templateId">Template Id</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>BaseSuccessResponse</returns>
-		public BaseSuccessResponse EditTemplate(object messageTemplate, string templateId, CancellationToken cancellationToken = default)
+        /// <summary>
+        /// Edit Message Template for update
+        /// </summary>
+        /// <param name="messageTemplate">MessageTemplate Object</param>
+        /// <param name="templateId">Template Id</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>BaseSuccessResponse</returns>
+        public BaseSuccessResponse EditTemplate(object messageTemplate, string templateId, CancellationToken cancellationToken = default)
         {
-			var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.GetTemplateById.Replace("{{TEMPLATE_ID}}", templateId);
-			return WhatsAppBusinessPostAsync<BaseSuccessResponse>(messageTemplate, formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
-		}
+            var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.GetTemplateById.Replace("{{TEMPLATE_ID}}", templateId);
+            return WhatsAppBusinessPostAsync<BaseSuccessResponse>(messageTemplate, formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
+        }
 
         public BaseSuccessResponse EnableConversationalWelcomeMessage(bool isWelcomeMessageEnabled, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
         {
@@ -847,9 +841,9 @@ namespace WhatsAppBotAPi.Services
             analyticUrlBuilder.Append($".phone_numbers({JsonSerializer.Serialize(phoneNumbers)})");
             analyticUrlBuilder.Append($".product_types({JsonSerializer.Serialize(productTypes)})");
             analyticUrlBuilder.Append($".country_codes({JsonSerializer.Serialize(countryCodes)})");
-			analyticUrlBuilder.Append($"&access_token={_whatsAppConfig.AccessToken}");
+            analyticUrlBuilder.Append($"&access_token={_whatsAppConfig.AccessToken}");
 
-			formattedWhatsAppEndpoint = analyticUrlBuilder.ToString();
+            formattedWhatsAppEndpoint = analyticUrlBuilder.ToString();
 
             return WhatsAppBusinessGetAsync<AnalyticsResponse>(formattedWhatsAppEndpoint, cancellationToken, isHeaderAccessTokenProvided: false).GetAwaiter().GetResult();
         }
@@ -897,111 +891,111 @@ namespace WhatsAppBotAPi.Services
             analyticUrlBuilder.Replace("{{start-date}}", new DateTimeOffset(startDate).ToUnixTimeSeconds().ToString());
             analyticUrlBuilder.Replace("{{end-date}}", new DateTimeOffset(endDate).ToUnixTimeSeconds().ToString());
             analyticUrlBuilder.Replace("{{granularity}}", granularity);
-			analyticUrlBuilder.Append($".phone_numbers({JsonSerializer.Serialize(phoneNumbers)})");
-			analyticUrlBuilder.Append($".product_types({JsonSerializer.Serialize(productTypes)})");
-			analyticUrlBuilder.Append($".country_codes({JsonSerializer.Serialize(countryCodes)})");
-			analyticUrlBuilder.Append($"&access_token={_whatsAppConfig.AccessToken}");
+            analyticUrlBuilder.Append($".phone_numbers({JsonSerializer.Serialize(phoneNumbers)})");
+            analyticUrlBuilder.Append($".product_types({JsonSerializer.Serialize(productTypes)})");
+            analyticUrlBuilder.Append($".country_codes({JsonSerializer.Serialize(countryCodes)})");
+            analyticUrlBuilder.Append($"&access_token={_whatsAppConfig.AccessToken}");
 
             formattedWhatsAppEndpoint = analyticUrlBuilder.ToString();
 
             return await WhatsAppBusinessGetAsync<AnalyticsResponse>(formattedWhatsAppEndpoint, cancellationToken, isHeaderAccessTokenProvided: false);
         }
 
-		/// <summary>
-		/// Get a list of blocked users.
-		/// </summary>
-		/// <param name="limit"></param>
-		/// <param name="after"></param>
-		/// <param name="before"></param>
-		/// <param name="cloudApiConfig">Custom cloud api config</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>GetBlockedUserResponse</returns>
-		public GetBlockedUserResponse GetBlockedUsers(int? limit = null, string after = null, string before = null, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        /// <summary>
+        /// Get a list of blocked users.
+        /// </summary>
+        /// <param name="limit"></param>
+        /// <param name="after"></param>
+        /// <param name="before"></param>
+        /// <param name="cloudApiConfig">Custom cloud api config</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>GetBlockedUserResponse</returns>
+        public GetBlockedUserResponse GetBlockedUsers(int? limit = null, string after = null, string before = null, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
         {
-			if (cloudApiConfig is not null)
-			{
-				_whatsAppConfig = cloudApiConfig;
-			}
+            if (cloudApiConfig is not null)
+            {
+                _whatsAppConfig = cloudApiConfig;
+            }
 
-			var builder = new StringBuilder();
+            var builder = new StringBuilder();
 
-			builder.Append(WhatsAppBusinessRequestEndpoint.BlockUser);
-			builder.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
+            builder.Append(WhatsAppBusinessRequestEndpoint.BlockUser);
+            builder.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
 
-			if (limit.HasValue)
-			{
-				builder.Append($"?limit={limit}");
-			}
+            if (limit.HasValue)
+            {
+                builder.Append($"?limit={limit}");
+            }
 
-			if (!string.IsNullOrWhiteSpace(after))
-			{
-				builder.Append($"?after={after}");
-			}
+            if (!string.IsNullOrWhiteSpace(after))
+            {
+                builder.Append($"?after={after}");
+            }
 
-			if (!string.IsNullOrWhiteSpace(before))
-			{
-				builder.Append($"?before={before}");
-			}
+            if (!string.IsNullOrWhiteSpace(before))
+            {
+                builder.Append($"?before={before}");
+            }
 
-			var formattedWhatsAppEndpoint = builder.ToString();
-			return WhatsAppBusinessGetAsync<GetBlockedUserResponse>(formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
-		}
+            var formattedWhatsAppEndpoint = builder.ToString();
+            return WhatsAppBusinessGetAsync<GetBlockedUserResponse>(formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
+        }
 
-		/// <summary>
-		/// Get a list of blocked users.
-		/// </summary>
-		/// <param name="limit"></param>
-		/// <param name="after"></param>
-		/// <param name="before"></param>
-		/// <param name="cloudApiConfig">Custom cloud api config</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>GetBlockedUserResponse</returns>
-		public async Task<GetBlockedUserResponse> GetBlockedUsersAsync(int? limit = null, string after = null, string before = null, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
-		{
-			if (cloudApiConfig is not null)
-			{
-				_whatsAppConfig = cloudApiConfig;
-			}
+        /// <summary>
+        /// Get a list of blocked users.
+        /// </summary>
+        /// <param name="limit"></param>
+        /// <param name="after"></param>
+        /// <param name="before"></param>
+        /// <param name="cloudApiConfig">Custom cloud api config</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>GetBlockedUserResponse</returns>
+        public async Task<GetBlockedUserResponse> GetBlockedUsersAsync(int? limit = null, string after = null, string before = null, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        {
+            if (cloudApiConfig is not null)
+            {
+                _whatsAppConfig = cloudApiConfig;
+            }
 
-			var builder = new StringBuilder();
+            var builder = new StringBuilder();
 
-			builder.Append(WhatsAppBusinessRequestEndpoint.BlockUser);
-			builder.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
+            builder.Append(WhatsAppBusinessRequestEndpoint.BlockUser);
+            builder.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
 
-			if (limit.HasValue)
-			{
-				builder.Append($"?limit={limit}");
-			}
+            if (limit.HasValue)
+            {
+                builder.Append($"?limit={limit}");
+            }
 
-			if (!string.IsNullOrWhiteSpace(after))
-			{
-				builder.Append($"?after={after}");
-			}
+            if (!string.IsNullOrWhiteSpace(after))
+            {
+                builder.Append($"?after={after}");
+            }
 
-			if (!string.IsNullOrWhiteSpace(before))
-			{
-				builder.Append($"?before={before}");
-			}
+            if (!string.IsNullOrWhiteSpace(before))
+            {
+                builder.Append($"?before={before}");
+            }
 
-			var formattedWhatsAppEndpoint = builder.ToString();
-			return await WhatsAppBusinessGetAsync<GetBlockedUserResponse>(formattedWhatsAppEndpoint, cancellationToken);
-		}
+            var formattedWhatsAppEndpoint = builder.ToString();
+            return await WhatsAppBusinessGetAsync<GetBlockedUserResponse>(formattedWhatsAppEndpoint, cancellationToken);
+        }
 
-		/// <summary>
-		/// The conversation_analytics field provides cost and conversation information for a specific WABA.
-		/// </summary>
-		/// <param name="whatsAppBusinessAccountId">Your WhatsApp Business Account (WABA) ID.</param>
-		/// <param name="startDate">The start date for the date range you are retrieving analytics for</param>
-		/// <param name="endDate">The end date for the date range you are retrieving analytics for</param>
-		/// <param name="granularity">The granularity by which you would like to retrieve the analytics</param>
-		/// <param name="phoneNumbers">An array of phone numbers for which you would like to retrieve analytics. If not provided, all phone numbers added to your WABA are included.</param>
-		/// <param name="metricTypes">List of metrics you would like to receive. If you send an empty list, we return results for all metric types.</param>
-		/// <param name="conversationTypes">List of conversation types. If you send an empty list, we return results for all conversation types.</param>
-		/// <param name="conversationDirections">List of conversation directions. If you send an empty list, we return results for all conversation directions</param>
-		/// <param name="dimensions">List of breakdowns you would like to apply to your metrics. If you send an empty list, we return results without any breakdowns.</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>ConversationAnalyticsResponse</returns>
-		public ConversationAnalyticsResponse GetConversationAnalyticMetrics(string whatsAppBusinessAccountId, DateTime startDate, DateTime endDate, string granularity, List<string>? phoneNumbers = null, List<string>? metricTypes = null, List<string>? conversationTypes = null, List<string>? conversationDirections = null, List<string>? dimensions = null, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        /// <summary>
+        /// The conversation_analytics field provides cost and conversation information for a specific WABA.
+        /// </summary>
+        /// <param name="whatsAppBusinessAccountId">Your WhatsApp Business Account (WABA) ID.</param>
+        /// <param name="startDate">The start date for the date range you are retrieving analytics for</param>
+        /// <param name="endDate">The end date for the date range you are retrieving analytics for</param>
+        /// <param name="granularity">The granularity by which you would like to retrieve the analytics</param>
+        /// <param name="phoneNumbers">An array of phone numbers for which you would like to retrieve analytics. If not provided, all phone numbers added to your WABA are included.</param>
+        /// <param name="metricTypes">List of metrics you would like to receive. If you send an empty list, we return results for all metric types.</param>
+        /// <param name="conversationTypes">List of conversation types. If you send an empty list, we return results for all conversation types.</param>
+        /// <param name="conversationDirections">List of conversation directions. If you send an empty list, we return results for all conversation directions</param>
+        /// <param name="dimensions">List of breakdowns you would like to apply to your metrics. If you send an empty list, we return results without any breakdowns.</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>ConversationAnalyticsResponse</returns>
+        public ConversationAnalyticsResponse GetConversationAnalyticMetrics(string whatsAppBusinessAccountId, DateTime startDate, DateTime endDate, string granularity, List<string>? phoneNumbers = null, List<string>? metricTypes = null, List<string>? conversationTypes = null, List<string>? conversationDirections = null, List<string>? dimensions = null, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
         {
             if (cloudApiConfig is not null)
             {
@@ -1047,9 +1041,9 @@ namespace WhatsAppBotAPi.Services
             conversationAnalyticUrlBuilder.Append($".conversation_types({JsonSerializer.Serialize(conversationTypes)})");
             conversationAnalyticUrlBuilder.Append($".conversation_directions({JsonSerializer.Serialize(conversationDirections)})");
             conversationAnalyticUrlBuilder.Append($".dimensions({JsonSerializer.Serialize(dimensions)})");
-			conversationAnalyticUrlBuilder.Append($"&access_token={_whatsAppConfig.AccessToken}");
+            conversationAnalyticUrlBuilder.Append($"&access_token={_whatsAppConfig.AccessToken}");
 
-			formattedWhatsAppEndpoint = conversationAnalyticUrlBuilder.ToString();
+            formattedWhatsAppEndpoint = conversationAnalyticUrlBuilder.ToString();
 
             return WhatsAppBusinessGetAsync<ConversationAnalyticsResponse>(formattedWhatsAppEndpoint, cancellationToken, isHeaderAccessTokenProvided: false).GetAwaiter().GetResult();
         }
@@ -1105,7 +1099,7 @@ namespace WhatsAppBotAPi.Services
                 dimensions = new();
             }
 
-			conversationAnalyticUrlBuilder.Replace("{{WABA-ID}}", whatsAppBusinessAccountId);
+            conversationAnalyticUrlBuilder.Replace("{{WABA-ID}}", whatsAppBusinessAccountId);
             conversationAnalyticUrlBuilder.Replace("{{start-date}}", new DateTimeOffset(startDate).ToUnixTimeSeconds().ToString());
             conversationAnalyticUrlBuilder.Replace("{{end-date}}", new DateTimeOffset(endDate).ToUnixTimeSeconds().ToString());
             conversationAnalyticUrlBuilder.Replace("{{granularity}}", granularity);
@@ -1114,9 +1108,9 @@ namespace WhatsAppBotAPi.Services
             conversationAnalyticUrlBuilder.Append($".conversation_types({JsonSerializer.Serialize(conversationTypes)})");
             conversationAnalyticUrlBuilder.Append($".conversation_directions({JsonSerializer.Serialize(conversationDirections)})");
             conversationAnalyticUrlBuilder.Append($".dimensions({JsonSerializer.Serialize(dimensions)})");
-			conversationAnalyticUrlBuilder.Append($"&access_token={_whatsAppConfig.AccessToken}");
+            conversationAnalyticUrlBuilder.Append($"&access_token={_whatsAppConfig.AccessToken}");
 
-			formattedWhatsAppEndpoint = conversationAnalyticUrlBuilder.ToString();
+            formattedWhatsAppEndpoint = conversationAnalyticUrlBuilder.ToString();
 
             return await WhatsAppBusinessGetAsync<ConversationAnalyticsResponse>(formattedWhatsAppEndpoint, cancellationToken, isHeaderAccessTokenProvided: false);
         }
@@ -1371,13 +1365,13 @@ namespace WhatsAppBotAPi.Services
             return await WhatsAppBusinessGetAsync<SharedWABAResponse>(formattedWhatsAppEndpoint, cancellationToken);
         }
 
-		/// <summary>
-		/// Get Whatsapp template message by namespace
-		/// </summary>
-		/// <param name="whatsAppBusinessAccountId">Whatsapp Business Account Id</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>TemplateNamespaceResponse</returns>
-		public async Task<TemplateNamespaceResponse> GetTemplateNamespaceAsync(string whatsAppBusinessAccountId, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        /// <summary>
+        /// Get Whatsapp template message by namespace
+        /// </summary>
+        /// <param name="whatsAppBusinessAccountId">Whatsapp Business Account Id</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>TemplateNamespaceResponse</returns>
+        public async Task<TemplateNamespaceResponse> GetTemplateNamespaceAsync(string whatsAppBusinessAccountId, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
         {
             if (cloudApiConfig is not null)
             {
@@ -1385,16 +1379,16 @@ namespace WhatsAppBotAPi.Services
             }
 
             var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.GetTemplateNamespace.Replace("{{WABA-ID}}", whatsAppBusinessAccountId);
-			return await WhatsAppBusinessGetAsync<TemplateNamespaceResponse>(formattedWhatsAppEndpoint, cancellationToken);
-		}
+            return await WhatsAppBusinessGetAsync<TemplateNamespaceResponse>(formattedWhatsAppEndpoint, cancellationToken);
+        }
 
-		/// <summary>
-		/// Get Whatsapp template message by namespace
-		/// </summary>
-		/// <param name="whatsAppBusinessAccountId">Whatsapp Business Account Id</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>TemplateNamespaceResponse</returns>
-		public TemplateNamespaceResponse GetTemplateNamespace(string whatsAppBusinessAccountId, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        /// <summary>
+        /// Get Whatsapp template message by namespace
+        /// </summary>
+        /// <param name="whatsAppBusinessAccountId">Whatsapp Business Account Id</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>TemplateNamespaceResponse</returns>
+        public TemplateNamespaceResponse GetTemplateNamespace(string whatsAppBusinessAccountId, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
         {
             if (cloudApiConfig is not null)
             {
@@ -1402,41 +1396,41 @@ namespace WhatsAppBotAPi.Services
             }
 
             var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.GetTemplateNamespace.Replace("{{WABA-ID}}", whatsAppBusinessAccountId);
-			return WhatsAppBusinessGetAsync<TemplateNamespaceResponse>(formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
-		}
+            return WhatsAppBusinessGetAsync<TemplateNamespaceResponse>(formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
+        }
 
-		/// <summary>
-		/// Get Whatsapp Template Message by Id
-		/// </summary>
-		/// <param name="templateId">Template Id</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>TemplateByIdResponse</returns>
-		public async Task<TemplateByIdResponse> GetTemplateByIdAsync(string templateId, CancellationToken cancellationToken = default)
+        /// <summary>
+        /// Get Whatsapp Template Message by Id
+        /// </summary>
+        /// <param name="templateId">Template Id</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>TemplateByIdResponse</returns>
+        public async Task<TemplateByIdResponse> GetTemplateByIdAsync(string templateId, CancellationToken cancellationToken = default)
         {
-			var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.GetTemplateById.Replace("{{TEMPLATE_ID}}", templateId);
-			return await WhatsAppBusinessGetAsync<TemplateByIdResponse>(formattedWhatsAppEndpoint, cancellationToken);
-		}
+            var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.GetTemplateById.Replace("{{TEMPLATE_ID}}", templateId);
+            return await WhatsAppBusinessGetAsync<TemplateByIdResponse>(formattedWhatsAppEndpoint, cancellationToken);
+        }
 
-		/// <summary>
-		/// Get Whatsapp Template Message by Id
-		/// </summary>
-		/// <param name="templateId">Template Id</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>TemplateByIdResponse</returns>
-		public TemplateByIdResponse GetTemplateById(string templateId, CancellationToken cancellationToken = default)
+        /// <summary>
+        /// Get Whatsapp Template Message by Id
+        /// </summary>
+        /// <param name="templateId">Template Id</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>TemplateByIdResponse</returns>
+        public TemplateByIdResponse GetTemplateById(string templateId, CancellationToken cancellationToken = default)
         {
-			var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.GetTemplateById.Replace("{{TEMPLATE_ID}}", templateId);
-			return WhatsAppBusinessGetAsync<TemplateByIdResponse>(formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
-		}
+            var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.GetTemplateById.Replace("{{TEMPLATE_ID}}", templateId);
+            return WhatsAppBusinessGetAsync<TemplateByIdResponse>(formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
+        }
 
-		/// <summary>
-		/// Get Whatsapp Template Message by Name
-		/// </summary>
-		/// <param name="whatsAppBusinessAccountId">Whatsapp Business Account Id</param>
-		/// <param name="templateName">Template Name</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>TemplateByNameResponse</returns>
-		public async Task<TemplateByNameResponse> GetTemplateByNameAsync(string whatsAppBusinessAccountId, string templateName, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        /// <summary>
+        /// Get Whatsapp Template Message by Name
+        /// </summary>
+        /// <param name="whatsAppBusinessAccountId">Whatsapp Business Account Id</param>
+        /// <param name="templateName">Template Name</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>TemplateByNameResponse</returns>
+        public async Task<TemplateByNameResponse> GetTemplateByNameAsync(string whatsAppBusinessAccountId, string templateName, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
         {
             if (cloudApiConfig is not null)
             {
@@ -1445,22 +1439,22 @@ namespace WhatsAppBotAPi.Services
 
             var builder = new StringBuilder();
 
-			builder.Append(WhatsAppBusinessRequestEndpoint.GetTemplateByName);
-			builder.Replace("{{WABA-ID}}", whatsAppBusinessAccountId);
-			builder.Replace("{{TEMPLATE_NAME}}", templateName);
+            builder.Append(WhatsAppBusinessRequestEndpoint.GetTemplateByName);
+            builder.Replace("{{WABA-ID}}", whatsAppBusinessAccountId);
+            builder.Replace("{{TEMPLATE_NAME}}", templateName);
 
-			var formattedWhatsAppEndpoint = builder.ToString();
-			return await WhatsAppBusinessGetAsync<TemplateByNameResponse>(formattedWhatsAppEndpoint, cancellationToken);
-		}
+            var formattedWhatsAppEndpoint = builder.ToString();
+            return await WhatsAppBusinessGetAsync<TemplateByNameResponse>(formattedWhatsAppEndpoint, cancellationToken);
+        }
 
-		/// <summary>
-		/// Get Whatsapp Template Message by Name
-		/// </summary>
-		/// <param name="whatsAppBusinessAccountId">Whatsapp Business Account Id</param>
-		/// <param name="templateName">Template Name</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>TemplateByNameResponse</returns>
-		public TemplateByNameResponse GetTemplateByName(string whatsAppBusinessAccountId, string templateName, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        /// <summary>
+        /// Get Whatsapp Template Message by Name
+        /// </summary>
+        /// <param name="whatsAppBusinessAccountId">Whatsapp Business Account Id</param>
+        /// <param name="templateName">Template Name</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>TemplateByNameResponse</returns>
+        public TemplateByNameResponse GetTemplateByName(string whatsAppBusinessAccountId, string templateName, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
         {
             if (cloudApiConfig is not null)
             {
@@ -1469,13 +1463,13 @@ namespace WhatsAppBotAPi.Services
 
             var builder = new StringBuilder();
 
-			builder.Append(WhatsAppBusinessRequestEndpoint.GetTemplateByName);
-			builder.Replace("{{WABA-ID}}", whatsAppBusinessAccountId);
-			builder.Replace("{{TEMPLATE_NAME}}", templateName);
+            builder.Append(WhatsAppBusinessRequestEndpoint.GetTemplateByName);
+            builder.Replace("{{WABA-ID}}", whatsAppBusinessAccountId);
+            builder.Replace("{{TEMPLATE_NAME}}", templateName);
 
-			var formattedWhatsAppEndpoint = builder.ToString();
-			return WhatsAppBusinessGetAsync<TemplateByNameResponse>(formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
-		}
+            var formattedWhatsAppEndpoint = builder.ToString();
+            return WhatsAppBusinessGetAsync<TemplateByNameResponse>(formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
+        }
 
         /// <summary>
         /// Get All templates for the whatsapp business account
@@ -1505,8 +1499,8 @@ namespace WhatsAppBotAPi.Services
             }
             else
             {
-				return await WhatsAppBusinessGetAsync<TemplateResponse>(pagingUrl, cancellationToken);
-			}
+                return await WhatsAppBusinessGetAsync<TemplateResponse>(pagingUrl, cancellationToken);
+            }
         }
 
         /// <summary>
@@ -1537,8 +1531,8 @@ namespace WhatsAppBotAPi.Services
             }
             else
             {
-				return WhatsAppBusinessGetAsync<TemplateResponse>(pagingUrl, cancellationToken).GetAwaiter().GetResult();
-			}
+                return WhatsAppBusinessGetAsync<TemplateResponse>(pagingUrl, cancellationToken).GetAwaiter().GetResult();
+            }
         }
 
         /// <summary>
@@ -1643,45 +1637,45 @@ namespace WhatsAppBotAPi.Services
             return await WhatsAppBusinessGetAsync<PhoneNumberResponse>(formattedWhatsAppEndpoint, cancellationToken);
         }
 
-		/// <summary>
-		/// When you receive an incoming message from Webhooks, you could use messages endpoint to change the status of it to read.
-		/// We recommend marking incoming messages as read within 30 days of receipt.
-		/// Note: you cannot mark outgoing messages you sent as read.
-		/// You need to obtain the message_id of the incoming message from Webhooks.
-		/// </summary>
-		/// <param name="markMessage">MarkMessage Object</param>
-		/// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>MarkMessageResponse</returns>
-		public MarkMessageResponse MarkMessageAsRead(MarkMessageRequest markMessage, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        /// <summary>
+        /// When you receive an incoming message from Webhooks, you could use messages endpoint to change the status of it to read.
+        /// We recommend marking incoming messages as read within 30 days of receipt.
+        /// Note: you cannot mark outgoing messages you sent as read.
+        /// You need to obtain the message_id of the incoming message from Webhooks.
+        /// </summary>
+        /// <param name="markMessage">MarkMessage Object</param>
+        /// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>MarkMessageResponse</returns>
+        public MarkMessageResponse MarkMessageAsRead(MarkMessageRequest markMessage, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
         {
-			if (cloudApiConfig is not null)
-			{
-				_whatsAppConfig = cloudApiConfig;
-			}
+            if (cloudApiConfig is not null)
+            {
+                _whatsAppConfig = cloudApiConfig;
+            }
 
-			var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.MarkMessageAsRead.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
+            var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.MarkMessageAsRead.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
             return WhatsAppBusinessPostAsync<MarkMessageResponse>(markMessage, formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
         }
 
-		/// <summary>
-		/// When you receive an incoming message from Webhooks, you could use messages endpoint to change the status of it to read.
-		/// We recommend marking incoming messages as read within 30 days of receipt.
-		/// Note: you cannot mark outgoing messages you sent as read.
-		/// You need to obtain the message_id of the incoming message from Webhooks.
-		/// </summary>
-		/// <param name="markMessage">MarkMessage Object</param>
-		/// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>MarkMessageResponse</returns>
-		public async Task<MarkMessageResponse> MarkMessageAsReadAsync(MarkMessageRequest markMessage, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        /// <summary>
+        /// When you receive an incoming message from Webhooks, you could use messages endpoint to change the status of it to read.
+        /// We recommend marking incoming messages as read within 30 days of receipt.
+        /// Note: you cannot mark outgoing messages you sent as read.
+        /// You need to obtain the message_id of the incoming message from Webhooks.
+        /// </summary>
+        /// <param name="markMessage">MarkMessage Object</param>
+        /// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>MarkMessageResponse</returns>
+        public async Task<MarkMessageResponse> MarkMessageAsReadAsync(MarkMessageRequest markMessage, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
         {
-			if (cloudApiConfig is not null)
-			{
-				_whatsAppConfig = cloudApiConfig;
-			}
+            if (cloudApiConfig is not null)
+            {
+                _whatsAppConfig = cloudApiConfig;
+            }
 
-			var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.MarkMessageAsRead.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
+            var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.MarkMessageAsRead.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
             return await WhatsAppBusinessPostAsync<MarkMessageResponse>(markMessage, formattedWhatsAppEndpoint, cancellationToken);
         }
 
@@ -2723,365 +2717,365 @@ namespace WhatsAppBotAPi.Services
             return WhatsAppBusinessPostAsync<WhatsAppResponse>(multiProductMessage, formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
         }
 
-		/// <summary>
-		/// Send Authentication Template Message
-		/// </summary>
-		/// <param name="authenticationTemplateMessageRequest">AuthenticationTemplateMessageRequest object</param>
-		/// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>WhatsAppResponse</returns>
-		public async Task<WhatsAppResponse> SendAuthenticationMessageTemplateAsync(AuthenticationTemplateMessageRequest authenticationTemplateMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
-		{
-			if (cloudApiConfig is not null)
-			{
-				_whatsAppConfig = cloudApiConfig;
-			}
-
-			var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
-			return await WhatsAppBusinessPostAsync<WhatsAppResponse>(authenticationTemplateMessageRequest, formattedWhatsAppEndpoint, cancellationToken);
-		}
-
-		/// <summary>
-		/// Send Authentication Template Message
-		/// </summary>
-		/// <param name="authenticationTemplateMessageRequest">AuthenticationTemplateMessageRequest object</param>
-		/// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>WhatsAppResponse</returns>
-		public WhatsAppResponse SendAuthenticationMessageTemplate(AuthenticationTemplateMessageRequest authenticationTemplateMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
-		{
-			if (cloudApiConfig is not null)
-			{
-				_whatsAppConfig = cloudApiConfig;
-			}
-
-			var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
-			return WhatsAppBusinessPostAsync<WhatsAppResponse>(authenticationTemplateMessageRequest, formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
-		}
-
-		/// <summary>
-		/// Send MPM Template Message
-		/// </summary>
-		/// <param name="multiProductTemplateMessageRequest">MultiProductTemplateMessageRequest object</param>
-		/// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>WhatsAppResponse</returns>
-		public async Task<WhatsAppResponse> SendMPMTemplateAsync(MultiProductTemplateMessageRequest multiProductTemplateMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
-		{
-			if (cloudApiConfig is not null)
-			{
-				_whatsAppConfig = cloudApiConfig;
-			}
-
-			var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
-			return await WhatsAppBusinessPostAsync<WhatsAppResponse>(multiProductTemplateMessageRequest, formattedWhatsAppEndpoint, cancellationToken);
-		}
-
-		/// <summary>
-		/// Send MPM Template Message
-		/// </summary>
-		/// <param name="multiProductTemplateMessageRequest">MultiProductTemplateMessageRequest object</param>
-		/// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>WhatsAppResponse</returns>
-		public WhatsAppResponse SendMPMTemplate(MultiProductTemplateMessageRequest multiProductTemplateMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
-		{
-			if (cloudApiConfig is not null)
-			{
-				_whatsAppConfig = cloudApiConfig;
-			}
-
-			var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
-			return WhatsAppBusinessPostAsync<WhatsAppResponse>(multiProductTemplateMessageRequest, formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
-		}
-
-		/// <summary>
-		/// Send SPM Template Message
-		/// </summary>
-		/// <param name="singleProductTemplateMessageRequest">SingleProductTemplateMessageRequest object</param>
-		/// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>WhatsAppResponse</returns>
-		public async Task<WhatsAppResponse> SendSPMTemplateAsync(SingleProductTemplateMessageRequest singleProductTemplateMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
-        {
-			if (cloudApiConfig is not null)
-			{
-				_whatsAppConfig = cloudApiConfig;
-			}
-
-			var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
-			return await WhatsAppBusinessPostAsync<WhatsAppResponse>(singleProductTemplateMessageRequest, formattedWhatsAppEndpoint, cancellationToken);
-		}
-
-		/// <summary>
-		/// Send SPM Template Message
-		/// </summary>
-		/// <param name="singleProductTemplateMessageRequest">SingleProductTemplateMessageRequest object</param>
-		/// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>WhatsAppResponse</returns>
-		public WhatsAppResponse SendSPMTemplate(SingleProductTemplateMessageRequest singleProductTemplateMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
-        {
-			if (cloudApiConfig is not null)
-			{
-				_whatsAppConfig = cloudApiConfig;
-			}
-
-			var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
-			return WhatsAppBusinessPostAsync<WhatsAppResponse>(singleProductTemplateMessageRequest, formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
-		}
-
-		/// <summary>
-		/// Send Catalog Template Message
-		/// </summary>
-		/// <param name="catalogTemplateMessageRequest">CatalogTemplateMessageRequest object</param>
-		/// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>WhatsAppResponse</returns>
-		public async Task<WhatsAppResponse> SendCatalogMessageTemplateAsync(CatalogTemplateMessageRequest catalogTemplateMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
-		{
-			if (cloudApiConfig is not null)
-			{
-				_whatsAppConfig = cloudApiConfig;
-			}
-
-			var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
-			return await WhatsAppBusinessPostAsync<WhatsAppResponse>(catalogTemplateMessageRequest, formattedWhatsAppEndpoint, cancellationToken);
-		}
-
-		/// <summary>
-		/// Send Catalog Template Message
-		/// </summary>
-		/// <param name="catalogTemplateMessageRequest">CatalogTemplateMessageRequest object</param>
-		/// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>WhatsAppResponse</returns>
-		public WhatsAppResponse SendCatalogMessageTemplate(CatalogTemplateMessageRequest catalogTemplateMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
-		{
-			if (cloudApiConfig is not null)
-			{
-				_whatsAppConfig = cloudApiConfig;
-			}
-
-			var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
-			return WhatsAppBusinessPostAsync<WhatsAppResponse>(catalogTemplateMessageRequest, formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
-		}
-
-		/// <summary>
-		/// Send Catalog Message
-		/// </summary>
-		/// <param name="catalogMessageRequest">CatalogMessageRequest object</param>
-		/// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>WhatsAppResponse</returns>
-		public async Task<WhatsAppResponse> SendCatalogMessageAsync(CatalogMessageRequest catalogMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
-        {
-			if (cloudApiConfig is not null)
-			{
-				_whatsAppConfig = cloudApiConfig;
-			}
-
-			var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
-			return await WhatsAppBusinessPostAsync<WhatsAppResponse>(catalogMessageRequest, formattedWhatsAppEndpoint, cancellationToken);
-		}
-
-		/// <summary>
-		/// Send Catalog Message
-		/// </summary>
-		/// <param name="catalogMessageRequest">CatalogMessageRequest object</param>
-		/// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>WhatsAppResponse</returns>
-		public WhatsAppResponse SendCatalogMessage(CatalogMessageRequest catalogMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
-        {
-			if (cloudApiConfig is not null)
-			{
-				_whatsAppConfig = cloudApiConfig;
-			}
-
-			var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
-			return WhatsAppBusinessPostAsync<WhatsAppResponse>(catalogMessageRequest, formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
-		}
-
-		/// <summary>
-		/// Send Carousel Template Message
-		/// </summary>
-		/// <param name="carouselTemplateMessageRequest">CarouselTemplateMessageRequest object</param>
-		/// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>WhatsAppResponse</returns>
-		public async Task<WhatsAppResponse> SendCarouselMessageTemplateAsync(CarouselTemplateMessageRequest carouselTemplateMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
-		{
-			if (cloudApiConfig is not null)
-			{
-				_whatsAppConfig = cloudApiConfig;
-			}
-
-			var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
-			return await WhatsAppBusinessPostAsync<WhatsAppResponse>(carouselTemplateMessageRequest, formattedWhatsAppEndpoint, cancellationToken);
-		}
-
-		/// <summary>
-		/// Send Carousel Template Message
-		/// </summary>
-		/// <param name="carouselTemplateMessageRequest">CarouselTemplateMessageRequest object</param>
-		/// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>WhatsAppResponse</returns>
-		public WhatsAppResponse SendCarouselMessageTemplate(CarouselTemplateMessageRequest carouselTemplateMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
-		{
-			if (cloudApiConfig is not null)
-			{
-				_whatsAppConfig = cloudApiConfig;
-			}
-
-			var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
-			return WhatsAppBusinessPostAsync<WhatsAppResponse>(carouselTemplateMessageRequest, formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
-		}
-
-		/// <summary>
-		/// Send Coupon Code Template Message
-		/// </summary>
-		/// <param name="couponCodeTemplateMessageRequest">CouponCodeTemplateMessageRequest object</param>
-		/// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>WhatsAppResponse</returns>
-		public async Task<WhatsAppResponse> SendCouponCodeMessageTemplateAsync(CouponCodeTemplateMessageRequest couponCodeTemplateMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
-		{
-			if (cloudApiConfig is not null)
-			{
-				_whatsAppConfig = cloudApiConfig;
-			}
-
-			var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
-			return await WhatsAppBusinessPostAsync<WhatsAppResponse>(couponCodeTemplateMessageRequest, formattedWhatsAppEndpoint, cancellationToken);
-		}
-
-		/// <summary>
-		/// Send Coupon Code Template Message
-		/// </summary>
-		/// <param name="couponCodeTemplateMessageRequest">CouponCodeTemplateMessageRequest object</param>
-		/// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>WhatsAppResponse</returns>
-		public WhatsAppResponse SendCouponCodeMessageTemplate(CouponCodeTemplateMessageRequest couponCodeTemplateMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
-		{
-			if (cloudApiConfig is not null)
-			{
-				_whatsAppConfig = cloudApiConfig;
-			}
-
-			var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
-			return WhatsAppBusinessPostAsync<WhatsAppResponse>(couponCodeTemplateMessageRequest, formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
-		}
-
-		/// <summary>
-		/// Send Limited Time Offer Template Message
-		/// </summary>
-		/// <param name="limitedTimeOfferTemplateMessageRequest">LimitedTimeOfferTemplateMessageRequest object</param>
-		/// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>WhatsAppResponse</returns>
-		public async Task<WhatsAppResponse> SendLimitedTimeOfferMessageTemplateAsync(LimitedTimeOfferTemplateMessageRequest limitedTimeOfferTemplateMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
-        {
-			if (cloudApiConfig is not null)
-			{
-				_whatsAppConfig = cloudApiConfig;
-			}
-
-			var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
-			return await WhatsAppBusinessPostAsync<WhatsAppResponse>(limitedTimeOfferTemplateMessageRequest, formattedWhatsAppEndpoint, cancellationToken);
-		}
-
-		/// <summary>
-		/// Send Limited Time Offer Template Message
-		/// </summary>
-		/// <param name="limitedTimeOfferTemplateMessageRequest">LimitedTimeOfferTemplateMessageRequest object</param>
-		/// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>WhatsAppResponse</returns>
-		public WhatsAppResponse SendLimitedTimeOfferMessageTemplate(LimitedTimeOfferTemplateMessageRequest limitedTimeOfferTemplateMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        /// <summary>
+        /// Send Authentication Template Message
+        /// </summary>
+        /// <param name="authenticationTemplateMessageRequest">AuthenticationTemplateMessageRequest object</param>
+        /// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>WhatsAppResponse</returns>
+        public async Task<WhatsAppResponse> SendAuthenticationMessageTemplateAsync(AuthenticationTemplateMessageRequest authenticationTemplateMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
         {
             if (cloudApiConfig is not null)
             {
                 _whatsAppConfig = cloudApiConfig;
             }
 
-			var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
-			return WhatsAppBusinessPostAsync<WhatsAppResponse>(limitedTimeOfferTemplateMessageRequest, formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
-		}
+            var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
+            return await WhatsAppBusinessPostAsync<WhatsAppResponse>(authenticationTemplateMessageRequest, formattedWhatsAppEndpoint, cancellationToken);
+        }
 
-		/// <summary>
-		/// Send Whatsapp Flow Messages
-		/// </summary>
-		/// <param name="flowMessageRequest">FlowMessageRequest object</param>
-		/// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>FlowMessageResponse</returns>
-		public async Task<FlowMessageResponse> SendFlowMessageAsync(FlowMessageRequest flowMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        /// <summary>
+        /// Send Authentication Template Message
+        /// </summary>
+        /// <param name="authenticationTemplateMessageRequest">AuthenticationTemplateMessageRequest object</param>
+        /// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>WhatsAppResponse</returns>
+        public WhatsAppResponse SendAuthenticationMessageTemplate(AuthenticationTemplateMessageRequest authenticationTemplateMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
         {
-			if (cloudApiConfig is not null)
-			{
-				_whatsAppConfig = cloudApiConfig;
-			}
+            if (cloudApiConfig is not null)
+            {
+                _whatsAppConfig = cloudApiConfig;
+            }
 
-			var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
-			return await WhatsAppBusinessPostAsync<FlowMessageResponse>(flowMessageRequest, formattedWhatsAppEndpoint, cancellationToken);
-		}
+            var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
+            return WhatsAppBusinessPostAsync<WhatsAppResponse>(authenticationTemplateMessageRequest, formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
+        }
 
-		/// <summary>
-		/// Send Whatsapp Flow Messages
-		/// </summary>
-		/// <param name="flowMessageRequest">FlowMessageRequest object</param>
-		/// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>FlowMessageResponse</returns>
-		public FlowMessageResponse SendFlowMessage(FlowMessageRequest flowMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        /// <summary>
+        /// Send MPM Template Message
+        /// </summary>
+        /// <param name="multiProductTemplateMessageRequest">MultiProductTemplateMessageRequest object</param>
+        /// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>WhatsAppResponse</returns>
+        public async Task<WhatsAppResponse> SendMPMTemplateAsync(MultiProductTemplateMessageRequest multiProductTemplateMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
         {
-			if (cloudApiConfig is not null)
-			{
-				_whatsAppConfig = cloudApiConfig;
-			}
+            if (cloudApiConfig is not null)
+            {
+                _whatsAppConfig = cloudApiConfig;
+            }
 
-			var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
-			return WhatsAppBusinessPostAsync<FlowMessageResponse>(flowMessageRequest, formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
-		}
+            var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
+            return await WhatsAppBusinessPostAsync<WhatsAppResponse>(multiProductTemplateMessageRequest, formattedWhatsAppEndpoint, cancellationToken);
+        }
 
-		/// <summary>
-		/// Send Whatsapp Flow Template Messages
-		/// </summary>
-		/// <param name="flowTemplateMessageRequest">FlowTemplateMessageRequest object</param>
-		/// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>WhatsAppResponse</returns>
-		public async Task<WhatsAppResponse> SendFlowMessageTemplateAsync(FlowTemplateMessageRequest flowTemplateMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        /// <summary>
+        /// Send MPM Template Message
+        /// </summary>
+        /// <param name="multiProductTemplateMessageRequest">MultiProductTemplateMessageRequest object</param>
+        /// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>WhatsAppResponse</returns>
+        public WhatsAppResponse SendMPMTemplate(MultiProductTemplateMessageRequest multiProductTemplateMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
         {
-			if (cloudApiConfig is not null)
-			{
-				_whatsAppConfig = cloudApiConfig;
-			}
+            if (cloudApiConfig is not null)
+            {
+                _whatsAppConfig = cloudApiConfig;
+            }
 
-			var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
-			return await WhatsAppBusinessPostAsync<WhatsAppResponse>(flowTemplateMessageRequest, formattedWhatsAppEndpoint, cancellationToken);
-		}
+            var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
+            return WhatsAppBusinessPostAsync<WhatsAppResponse>(multiProductTemplateMessageRequest, formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
+        }
 
-		/// <summary>
-		/// Send Whatsapp Flow Template Messages
-		/// </summary>
-		/// <param name="flowTemplateMessageRequest">FlowTemplateMessageRequest object</param>
-		/// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>WhatsAppResponse</returns>
-		public WhatsAppResponse SendFlowMessageTemplate(FlowTemplateMessageRequest flowTemplateMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        /// <summary>
+        /// Send SPM Template Message
+        /// </summary>
+        /// <param name="singleProductTemplateMessageRequest">SingleProductTemplateMessageRequest object</param>
+        /// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>WhatsAppResponse</returns>
+        public async Task<WhatsAppResponse> SendSPMTemplateAsync(SingleProductTemplateMessageRequest singleProductTemplateMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
         {
-			if (cloudApiConfig is not null)
-			{
-				_whatsAppConfig = cloudApiConfig;
-			}
+            if (cloudApiConfig is not null)
+            {
+                _whatsAppConfig = cloudApiConfig;
+            }
 
-			var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
-			return WhatsAppBusinessPostAsync<FlowMessageResponse>(flowTemplateMessageRequest, formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
-		}
+            var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
+            return await WhatsAppBusinessPostAsync<WhatsAppResponse>(singleProductTemplateMessageRequest, formattedWhatsAppEndpoint, cancellationToken);
+        }
+
+        /// <summary>
+        /// Send SPM Template Message
+        /// </summary>
+        /// <param name="singleProductTemplateMessageRequest">SingleProductTemplateMessageRequest object</param>
+        /// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>WhatsAppResponse</returns>
+        public WhatsAppResponse SendSPMTemplate(SingleProductTemplateMessageRequest singleProductTemplateMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        {
+            if (cloudApiConfig is not null)
+            {
+                _whatsAppConfig = cloudApiConfig;
+            }
+
+            var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
+            return WhatsAppBusinessPostAsync<WhatsAppResponse>(singleProductTemplateMessageRequest, formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Send Catalog Template Message
+        /// </summary>
+        /// <param name="catalogTemplateMessageRequest">CatalogTemplateMessageRequest object</param>
+        /// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>WhatsAppResponse</returns>
+        public async Task<WhatsAppResponse> SendCatalogMessageTemplateAsync(CatalogTemplateMessageRequest catalogTemplateMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        {
+            if (cloudApiConfig is not null)
+            {
+                _whatsAppConfig = cloudApiConfig;
+            }
+
+            var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
+            return await WhatsAppBusinessPostAsync<WhatsAppResponse>(catalogTemplateMessageRequest, formattedWhatsAppEndpoint, cancellationToken);
+        }
+
+        /// <summary>
+        /// Send Catalog Template Message
+        /// </summary>
+        /// <param name="catalogTemplateMessageRequest">CatalogTemplateMessageRequest object</param>
+        /// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>WhatsAppResponse</returns>
+        public WhatsAppResponse SendCatalogMessageTemplate(CatalogTemplateMessageRequest catalogTemplateMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        {
+            if (cloudApiConfig is not null)
+            {
+                _whatsAppConfig = cloudApiConfig;
+            }
+
+            var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
+            return WhatsAppBusinessPostAsync<WhatsAppResponse>(catalogTemplateMessageRequest, formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Send Catalog Message
+        /// </summary>
+        /// <param name="catalogMessageRequest">CatalogMessageRequest object</param>
+        /// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>WhatsAppResponse</returns>
+        public async Task<WhatsAppResponse> SendCatalogMessageAsync(CatalogMessageRequest catalogMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        {
+            if (cloudApiConfig is not null)
+            {
+                _whatsAppConfig = cloudApiConfig;
+            }
+
+            var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
+            return await WhatsAppBusinessPostAsync<WhatsAppResponse>(catalogMessageRequest, formattedWhatsAppEndpoint, cancellationToken);
+        }
+
+        /// <summary>
+        /// Send Catalog Message
+        /// </summary>
+        /// <param name="catalogMessageRequest">CatalogMessageRequest object</param>
+        /// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>WhatsAppResponse</returns>
+        public WhatsAppResponse SendCatalogMessage(CatalogMessageRequest catalogMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        {
+            if (cloudApiConfig is not null)
+            {
+                _whatsAppConfig = cloudApiConfig;
+            }
+
+            var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
+            return WhatsAppBusinessPostAsync<WhatsAppResponse>(catalogMessageRequest, formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Send Carousel Template Message
+        /// </summary>
+        /// <param name="carouselTemplateMessageRequest">CarouselTemplateMessageRequest object</param>
+        /// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>WhatsAppResponse</returns>
+        public async Task<WhatsAppResponse> SendCarouselMessageTemplateAsync(CarouselTemplateMessageRequest carouselTemplateMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        {
+            if (cloudApiConfig is not null)
+            {
+                _whatsAppConfig = cloudApiConfig;
+            }
+
+            var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
+            return await WhatsAppBusinessPostAsync<WhatsAppResponse>(carouselTemplateMessageRequest, formattedWhatsAppEndpoint, cancellationToken);
+        }
+
+        /// <summary>
+        /// Send Carousel Template Message
+        /// </summary>
+        /// <param name="carouselTemplateMessageRequest">CarouselTemplateMessageRequest object</param>
+        /// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>WhatsAppResponse</returns>
+        public WhatsAppResponse SendCarouselMessageTemplate(CarouselTemplateMessageRequest carouselTemplateMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        {
+            if (cloudApiConfig is not null)
+            {
+                _whatsAppConfig = cloudApiConfig;
+            }
+
+            var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
+            return WhatsAppBusinessPostAsync<WhatsAppResponse>(carouselTemplateMessageRequest, formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Send Coupon Code Template Message
+        /// </summary>
+        /// <param name="couponCodeTemplateMessageRequest">CouponCodeTemplateMessageRequest object</param>
+        /// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>WhatsAppResponse</returns>
+        public async Task<WhatsAppResponse> SendCouponCodeMessageTemplateAsync(CouponCodeTemplateMessageRequest couponCodeTemplateMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        {
+            if (cloudApiConfig is not null)
+            {
+                _whatsAppConfig = cloudApiConfig;
+            }
+
+            var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
+            return await WhatsAppBusinessPostAsync<WhatsAppResponse>(couponCodeTemplateMessageRequest, formattedWhatsAppEndpoint, cancellationToken);
+        }
+
+        /// <summary>
+        /// Send Coupon Code Template Message
+        /// </summary>
+        /// <param name="couponCodeTemplateMessageRequest">CouponCodeTemplateMessageRequest object</param>
+        /// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>WhatsAppResponse</returns>
+        public WhatsAppResponse SendCouponCodeMessageTemplate(CouponCodeTemplateMessageRequest couponCodeTemplateMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        {
+            if (cloudApiConfig is not null)
+            {
+                _whatsAppConfig = cloudApiConfig;
+            }
+
+            var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
+            return WhatsAppBusinessPostAsync<WhatsAppResponse>(couponCodeTemplateMessageRequest, formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Send Limited Time Offer Template Message
+        /// </summary>
+        /// <param name="limitedTimeOfferTemplateMessageRequest">LimitedTimeOfferTemplateMessageRequest object</param>
+        /// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>WhatsAppResponse</returns>
+        public async Task<WhatsAppResponse> SendLimitedTimeOfferMessageTemplateAsync(LimitedTimeOfferTemplateMessageRequest limitedTimeOfferTemplateMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        {
+            if (cloudApiConfig is not null)
+            {
+                _whatsAppConfig = cloudApiConfig;
+            }
+
+            var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
+            return await WhatsAppBusinessPostAsync<WhatsAppResponse>(limitedTimeOfferTemplateMessageRequest, formattedWhatsAppEndpoint, cancellationToken);
+        }
+
+        /// <summary>
+        /// Send Limited Time Offer Template Message
+        /// </summary>
+        /// <param name="limitedTimeOfferTemplateMessageRequest">LimitedTimeOfferTemplateMessageRequest object</param>
+        /// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>WhatsAppResponse</returns>
+        public WhatsAppResponse SendLimitedTimeOfferMessageTemplate(LimitedTimeOfferTemplateMessageRequest limitedTimeOfferTemplateMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        {
+            if (cloudApiConfig is not null)
+            {
+                _whatsAppConfig = cloudApiConfig;
+            }
+
+            var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
+            return WhatsAppBusinessPostAsync<WhatsAppResponse>(limitedTimeOfferTemplateMessageRequest, formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Send Whatsapp Flow Messages
+        /// </summary>
+        /// <param name="flowMessageRequest">FlowMessageRequest object</param>
+        /// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>FlowMessageResponse</returns>
+        public async Task<FlowMessageResponse> SendFlowMessageAsync(FlowMessageRequest flowMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        {
+            if (cloudApiConfig is not null)
+            {
+                _whatsAppConfig = cloudApiConfig;
+            }
+
+            var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
+            return await WhatsAppBusinessPostAsync<FlowMessageResponse>(flowMessageRequest, formattedWhatsAppEndpoint, cancellationToken);
+        }
+
+        /// <summary>
+        /// Send Whatsapp Flow Messages
+        /// </summary>
+        /// <param name="flowMessageRequest">FlowMessageRequest object</param>
+        /// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>FlowMessageResponse</returns>
+        public FlowMessageResponse SendFlowMessage(FlowMessageRequest flowMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        {
+            if (cloudApiConfig is not null)
+            {
+                _whatsAppConfig = cloudApiConfig;
+            }
+
+            var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
+            return WhatsAppBusinessPostAsync<FlowMessageResponse>(flowMessageRequest, formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Send Whatsapp Flow Template Messages
+        /// </summary>
+        /// <param name="flowTemplateMessageRequest">FlowTemplateMessageRequest object</param>
+        /// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>WhatsAppResponse</returns>
+        public async Task<WhatsAppResponse> SendFlowMessageTemplateAsync(FlowTemplateMessageRequest flowTemplateMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        {
+            if (cloudApiConfig is not null)
+            {
+                _whatsAppConfig = cloudApiConfig;
+            }
+
+            var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
+            return await WhatsAppBusinessPostAsync<WhatsAppResponse>(flowTemplateMessageRequest, formattedWhatsAppEndpoint, cancellationToken);
+        }
+
+        /// <summary>
+        /// Send Whatsapp Flow Template Messages
+        /// </summary>
+        /// <param name="flowTemplateMessageRequest">FlowTemplateMessageRequest object</param>
+        /// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>WhatsAppResponse</returns>
+        public WhatsAppResponse SendFlowMessageTemplate(FlowTemplateMessageRequest flowTemplateMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        {
+            if (cloudApiConfig is not null)
+            {
+                _whatsAppConfig = cloudApiConfig;
+            }
+
+            var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
+            return WhatsAppBusinessPostAsync<FlowMessageResponse>(flowTemplateMessageRequest, formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
+        }
 
         /// <summary>
         /// Send generic or universal whatsapp message type that are not implemented in the library
@@ -3119,174 +3113,174 @@ namespace WhatsAppBotAPi.Services
             return WhatsAppBusinessPostAsync<WhatsAppResponse>(whatsAppMessageRequest, formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
         }
 
-		/// <summary>
-		/// Location request messages are free-form messages displaying body text and a send location button. When a WhatsApp user taps the button, a location sharing screen appears which the user can then use to share their location.
-		/// </summary>
-		/// <param name="interactiveLocationMessageRequest">interactiveLocationMessageRequest object</param>
-		/// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>WhatsAppResponse</returns>
-		public async Task<WhatsAppResponse> SendLocationRequestMessageAsync(InteractiveLocationMessageRequest interactiveLocationMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        /// <summary>
+        /// Location request messages are free-form messages displaying body text and a send location button. When a WhatsApp user taps the button, a location sharing screen appears which the user can then use to share their location.
+        /// </summary>
+        /// <param name="interactiveLocationMessageRequest">interactiveLocationMessageRequest object</param>
+        /// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>WhatsAppResponse</returns>
+        public async Task<WhatsAppResponse> SendLocationRequestMessageAsync(InteractiveLocationMessageRequest interactiveLocationMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
         {
-			if (cloudApiConfig is not null)
-			{
-				_whatsAppConfig = cloudApiConfig;
-			}
+            if (cloudApiConfig is not null)
+            {
+                _whatsAppConfig = cloudApiConfig;
+            }
 
-			var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
-			return await WhatsAppBusinessPostAsync<WhatsAppResponse>(interactiveLocationMessageRequest, formattedWhatsAppEndpoint, cancellationToken);
-		}
+            var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
+            return await WhatsAppBusinessPostAsync<WhatsAppResponse>(interactiveLocationMessageRequest, formattedWhatsAppEndpoint, cancellationToken);
+        }
 
-		/// <summary>
-		/// Location request messages are free-form messages displaying body text and a send location button. When a WhatsApp user taps the button, a location sharing screen appears which the user can then use to share their location.
-		/// </summary>
-		/// <param name="interactiveLocationMessageRequest">interactiveLocationMessageRequest object</param>
-		/// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>WhatsAppResponse</returns>
-		public WhatsAppResponse SendLocationRequestMessage(InteractiveLocationMessageRequest interactiveLocationMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        /// <summary>
+        /// Location request messages are free-form messages displaying body text and a send location button. When a WhatsApp user taps the button, a location sharing screen appears which the user can then use to share their location.
+        /// </summary>
+        /// <param name="interactiveLocationMessageRequest">interactiveLocationMessageRequest object</param>
+        /// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>WhatsAppResponse</returns>
+        public WhatsAppResponse SendLocationRequestMessage(InteractiveLocationMessageRequest interactiveLocationMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
         {
-			if (cloudApiConfig is not null)
-			{
-				_whatsAppConfig = cloudApiConfig;
-			}
+            if (cloudApiConfig is not null)
+            {
+                _whatsAppConfig = cloudApiConfig;
+            }
 
-			var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
-			return WhatsAppBusinessPostAsync<WhatsAppResponse>(interactiveLocationMessageRequest, formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
-		}
+            var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
+            return WhatsAppBusinessPostAsync<WhatsAppResponse>(interactiveLocationMessageRequest, formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
+        }
 
-		/// <summary>
-		/// Send Template Message based on parameters
-		/// </summary>
-		/// <param name="recipientPhoneNumber">Recipient Phone Number</param>
-		/// <param name="templateName">Name of the template</param>
-		/// <param name="languageCode">Language Code of the template</param>
-		/// <param name="components">Components for the template</param>
-		/// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>WhatsAppResponse</returns>
-		public async Task<WhatsAppResponse> SendTemplateMessageAsync(string recipientPhoneNumber, string templateName, string languageCode, TemplateComponent[] components = null, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        /// <summary>
+        /// Send Template Message based on parameters
+        /// </summary>
+        /// <param name="recipientPhoneNumber">Recipient Phone Number</param>
+        /// <param name="templateName">Name of the template</param>
+        /// <param name="languageCode">Language Code of the template</param>
+        /// <param name="components">Components for the template</param>
+        /// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>WhatsAppResponse</returns>
+        public async Task<WhatsAppResponse> SendTemplateMessageAsync(string recipientPhoneNumber, string templateName, string languageCode, TemplateComponent[] components = null, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
         {
-			var processedComponents = new List<object>();
+            var processedComponents = new List<object>();
 
-			if (components != null)
-			{
-				foreach (var component in components)
-				{
-					var componentObject = new Dictionary<string, object>
-			        {
-				        { "type", component.Type }
-			        };
+            if (components != null)
+            {
+                foreach (var component in components)
+                {
+                    var componentObject = new Dictionary<string, object>
+                    {
+                        { "type", component.Type }
+                    };
 
-					// Add "text" if present (for text-based headers and footers)
-					if (!string.IsNullOrEmpty(component.Text))
-					{
-						componentObject["text"] = component.Text;
-					}
+                    // Add "text" if present (for text-based headers and footers)
+                    if (!string.IsNullOrEmpty(component.Text))
+                    {
+                        componentObject["text"] = component.Text;
+                    }
 
-					// Add "parameters" if present
-					if (component.Parameters != null && component.Parameters.Length > 0)
-					{
-						componentObject["parameters"] = component.Parameters;
-					}
+                    // Add "parameters" if present
+                    if (component.Parameters != null && component.Parameters.Length > 0)
+                    {
+                        componentObject["parameters"] = component.Parameters;
+                    }
 
-					processedComponents.Add(componentObject);
-				}
-			}
+                    processedComponents.Add(componentObject);
+                }
+            }
 
-			var payload = new
-			{
-				messaging_product = "whatsapp",
-				recipient_type = "individual",
-				to = recipientPhoneNumber,
-				type = "template",
-				template = new
-				{
-					name = templateName,
-					language = new { code = languageCode },
-					components = processedComponents.Count > 0 ? processedComponents.ToArray() : null
-				}
-			};
+            var payload = new
+            {
+                messaging_product = "whatsapp",
+                recipient_type = "individual",
+                to = recipientPhoneNumber,
+                type = "template",
+                template = new
+                {
+                    name = templateName,
+                    language = new { code = languageCode },
+                    components = processedComponents.Count > 0 ? processedComponents.ToArray() : null
+                }
+            };
 
-			if (cloudApiConfig is not null)
-			{
-				_whatsAppConfig = cloudApiConfig;
-			}
+            if (cloudApiConfig is not null)
+            {
+                _whatsAppConfig = cloudApiConfig;
+            }
 
-			var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
-			return await WhatsAppBusinessPostAsync<WhatsAppResponse>(payload, formattedWhatsAppEndpoint, cancellationToken);
-		}
+            var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
+            return await WhatsAppBusinessPostAsync<WhatsAppResponse>(payload, formattedWhatsAppEndpoint, cancellationToken);
+        }
 
-		/// <summary>
-		/// Send Template Message based on parameters
-		/// </summary>
-		/// <param name="recipientPhoneNumber">Recipient Phone Number</param>
-		/// <param name="templateName">Name of the template</param>
-		/// <param name="languageCode">Language Code of the template</param>
-		/// <param name="components">Components for the template</param>
-		/// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>WhatsAppResponse</returns>
-		public WhatsAppResponse SendTemplateMessage(string recipientPhoneNumber, string templateName, string languageCode, TemplateComponent[] components = null, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        /// <summary>
+        /// Send Template Message based on parameters
+        /// </summary>
+        /// <param name="recipientPhoneNumber">Recipient Phone Number</param>
+        /// <param name="templateName">Name of the template</param>
+        /// <param name="languageCode">Language Code of the template</param>
+        /// <param name="components">Components for the template</param>
+        /// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>WhatsAppResponse</returns>
+        public WhatsAppResponse SendTemplateMessage(string recipientPhoneNumber, string templateName, string languageCode, TemplateComponent[] components = null, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
         {
-			var processedComponents = new List<object>();
+            var processedComponents = new List<object>();
 
-			if (components != null)
-			{
-				foreach (var component in components)
-				{
-					var componentObject = new Dictionary<string, object>
-					{
-						{ "type", component.Type }
-					};
+            if (components != null)
+            {
+                foreach (var component in components)
+                {
+                    var componentObject = new Dictionary<string, object>
+                    {
+                        { "type", component.Type }
+                    };
 
-					// Add "text" if present (for text-based headers and footers)
-					if (!string.IsNullOrEmpty(component.Text))
-					{
-						componentObject["text"] = component.Text;
-					}
+                    // Add "text" if present (for text-based headers and footers)
+                    if (!string.IsNullOrEmpty(component.Text))
+                    {
+                        componentObject["text"] = component.Text;
+                    }
 
-					// Add "parameters" if present
-					if (component.Parameters != null && component.Parameters.Length > 0)
-					{
-						componentObject["parameters"] = component.Parameters;
-					}
+                    // Add "parameters" if present
+                    if (component.Parameters != null && component.Parameters.Length > 0)
+                    {
+                        componentObject["parameters"] = component.Parameters;
+                    }
 
-					processedComponents.Add(componentObject);
-				}
-			}
+                    processedComponents.Add(componentObject);
+                }
+            }
 
-			var payload = new
-			{
-				messaging_product = "whatsapp",
-				recipient_type = "individual",
-				to = recipientPhoneNumber,
-				type = "template",
-				template = new
-				{
-					name = templateName,
-					language = new { code = languageCode },
-					components = processedComponents.Count > 0 ? processedComponents.ToArray() : null
-				}
-			};
+            var payload = new
+            {
+                messaging_product = "whatsapp",
+                recipient_type = "individual",
+                to = recipientPhoneNumber,
+                type = "template",
+                template = new
+                {
+                    name = templateName,
+                    language = new { code = languageCode },
+                    components = processedComponents.Count > 0 ? processedComponents.ToArray() : null
+                }
+            };
 
-			if (cloudApiConfig is not null)
-			{
-				_whatsAppConfig = cloudApiConfig;
-			}
+            if (cloudApiConfig is not null)
+            {
+                _whatsAppConfig = cloudApiConfig;
+            }
 
-			var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
-			return WhatsAppBusinessPostAsync<WhatsAppResponse>(payload, formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
-		}
+            var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.SendMessage.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
+            return WhatsAppBusinessPostAsync<WhatsAppResponse>(payload, formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
+        }
 
-		/// <summary>
-		/// You can use this endpoint to change two-step verification code associated with your account. After you change the verification code, future requests like changing the name, must use the new code.
-		/// You set up two-factor verification and register a phone number in the same API call.
-		/// </summary>
-		/// <param name="twoStepVerificationRequest">TwoStepVerificationRequest object</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>BaseSuccessResponse</returns>
-		public BaseSuccessResponse SetTwoStepVerificatiion(TwoStepVerificationRequest twoStepVerificationRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        /// <summary>
+        /// You can use this endpoint to change two-step verification code associated with your account. After you change the verification code, future requests like changing the name, must use the new code.
+        /// You set up two-factor verification and register a phone number in the same API call.
+        /// </summary>
+        /// <param name="twoStepVerificationRequest">TwoStepVerificationRequest object</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>BaseSuccessResponse</returns>
+        public BaseSuccessResponse SetTwoStepVerificatiion(TwoStepVerificationRequest twoStepVerificationRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
         {
             if (cloudApiConfig is not null)
             {
@@ -3315,60 +3309,60 @@ namespace WhatsAppBotAPi.Services
             return await WhatsAppBusinessPostAsync<BaseSuccessResponse>(twoStepVerificationRequest, formattedWhatsAppEndpoint, cancellationToken);
         }
 
-		/// <summary>
-		/// Use this endpoint to unblock a list of WhatsApp user numbers.
-		/// </summary>
-		/// <param name="blockUserRequest">Block User Request</param>
-		/// <param name="cloudApiConfig">Custom cloud api config</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>BlockUserResponse</returns>
-		public BlockUserResponse UnblockUser(BlockUserRequest blockUserRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
-		{
-			if (cloudApiConfig is not null)
-			{
-				_whatsAppConfig = cloudApiConfig;
-			}
+        /// <summary>
+        /// Use this endpoint to unblock a list of WhatsApp user numbers.
+        /// </summary>
+        /// <param name="blockUserRequest">Block User Request</param>
+        /// <param name="cloudApiConfig">Custom cloud api config</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>BlockUserResponse</returns>
+        public BlockUserResponse UnblockUser(BlockUserRequest blockUserRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        {
+            if (cloudApiConfig is not null)
+            {
+                _whatsAppConfig = cloudApiConfig;
+            }
 
-			var builder = new StringBuilder();
+            var builder = new StringBuilder();
 
-			builder.Append(WhatsAppBusinessRequestEndpoint.BlockUser);
-			builder.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
+            builder.Append(WhatsAppBusinessRequestEndpoint.BlockUser);
+            builder.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
 
-			var formattedWhatsAppEndpoint = builder.ToString();
-			return WhatsAppBusinessDeleteAsync<BlockUserResponse>(formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
-		}
+            var formattedWhatsAppEndpoint = builder.ToString();
+            return WhatsAppBusinessDeleteAsync<BlockUserResponse>(formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
+        }
 
-		/// <summary>
-		/// Use this endpoint to unblock a list of WhatsApp user numbers.
-		/// </summary>
-		/// <param name="blockUserRequest">Block User Request</param>
-		/// <param name="cloudApiConfig">Custom cloud api config</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>BlockUserResponse</returns>
-		public async Task<BlockUserResponse> UnblockUserAsync(BlockUserRequest blockUserRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
-		{
-			if (cloudApiConfig is not null)
-			{
-				_whatsAppConfig = cloudApiConfig;
-			}
+        /// <summary>
+        /// Use this endpoint to unblock a list of WhatsApp user numbers.
+        /// </summary>
+        /// <param name="blockUserRequest">Block User Request</param>
+        /// <param name="cloudApiConfig">Custom cloud api config</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>BlockUserResponse</returns>
+        public async Task<BlockUserResponse> UnblockUserAsync(BlockUserRequest blockUserRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        {
+            if (cloudApiConfig is not null)
+            {
+                _whatsAppConfig = cloudApiConfig;
+            }
 
-			var builder = new StringBuilder();
+            var builder = new StringBuilder();
 
-			builder.Append(WhatsAppBusinessRequestEndpoint.BlockUser);
-			builder.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
+            builder.Append(WhatsAppBusinessRequestEndpoint.BlockUser);
+            builder.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
 
-			var formattedWhatsAppEndpoint = builder.ToString();
-			return await WhatsAppBusinessDeleteAsync<BlockUserResponse>(formattedWhatsAppEndpoint, cancellationToken);
-		}
+            var formattedWhatsAppEndpoint = builder.ToString();
+            return await WhatsAppBusinessDeleteAsync<BlockUserResponse>(formattedWhatsAppEndpoint, cancellationToken);
+        }
 
-		/// <summary>
-		/// Update the business profile information such as the business description, email or address. To update your profile, make a POST call to /{{Phone-Number-ID}}/whatsapp_business_profile. In your request, you can include the parameters listed below.
-		/// It is recommended that you use Resumable Upload - Create an Upload Session to obtain an upload ID.Then use this upload ID in a call to Resumable Upload - Upload File Data to obtain the picture handle.This handle can be used for the profile_picture_handle
-		/// </summary>
-		/// <param name="updateBusinessProfileRequest">UpdateBusinessProfileRequest object</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>BaseSuccessResponse</returns>
-		public BaseSuccessResponse UpdateBusinessProfile(UpdateBusinessProfileRequest updateBusinessProfileRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
+        /// <summary>
+        /// Update the business profile information such as the business description, email or address. To update your profile, make a POST call to /{{Phone-Number-ID}}/whatsapp_business_profile. In your request, you can include the parameters listed below.
+        /// It is recommended that you use Resumable Upload - Create an Upload Session to obtain an upload ID.Then use this upload ID in a call to Resumable Upload - Upload File Data to obtain the picture handle.This handle can be used for the profile_picture_handle
+        /// </summary>
+        /// <param name="updateBusinessProfileRequest">UpdateBusinessProfileRequest object</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>BaseSuccessResponse</returns>
+        public BaseSuccessResponse UpdateBusinessProfile(UpdateBusinessProfileRequest updateBusinessProfileRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default)
         {
             if (cloudApiConfig is not null)
             {
@@ -3418,13 +3412,13 @@ namespace WhatsAppBotAPi.Services
 
             var formattedWhatsAppEndpoint = builder.ToString();
 
-			QRCodeMessageRequest qRCodeMessageRequest = new QRCodeMessageRequest
-			{
-				PrefilledMessage = messageText,
-				Code = qrCodeId
-			};
+            QRCodeMessageRequest qRCodeMessageRequest = new QRCodeMessageRequest
+            {
+                PrefilledMessage = messageText,
+                Code = qrCodeId
+            };
 
-			return WhatsAppBusinessPostAsync<QRCodeMessageResponse>(qRCodeMessageRequest, formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
+            return WhatsAppBusinessPostAsync<QRCodeMessageResponse>(qRCodeMessageRequest, formattedWhatsAppEndpoint, cancellationToken).GetAwaiter().GetResult();
         }
 
         /// <summary>
@@ -3448,13 +3442,13 @@ namespace WhatsAppBotAPi.Services
 
             var formattedWhatsAppEndpoint = builder.ToString();
 
-			QRCodeMessageRequest qRCodeMessageRequest = new QRCodeMessageRequest
-			{
-				PrefilledMessage = messageText,
-				Code = qrCodeId
-			};
+            QRCodeMessageRequest qRCodeMessageRequest = new QRCodeMessageRequest
+            {
+                PrefilledMessage = messageText,
+                Code = qrCodeId
+            };
 
-			return await WhatsAppBusinessPostAsync<QRCodeMessageResponse>(qRCodeMessageRequest, formattedWhatsAppEndpoint, cancellationToken);
+            return await WhatsAppBusinessPostAsync<QRCodeMessageResponse>(qRCodeMessageRequest, formattedWhatsAppEndpoint, cancellationToken);
         }
 
         /// <summary>
@@ -3499,7 +3493,7 @@ namespace WhatsAppBotAPi.Services
             var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.ResumableUploadFileData.Replace("{{Upload-ID}}", uploadId);
             return WhatsAppBusinessPostAsync<ResumableUploadResponse>(formattedWhatsAppEndpoint, fileName, fileContentType, fileData, cancellationToken).GetAwaiter().GetResult();
         }
-        
+
         /// <summary>
         /// To upload a profile picture to your business profile, make a POST call to the named endpoint v14.0/{{Upload-ID}}, where Upload-ID is the value you received from Resumable Upload - Create an Upload Session.
         /// </summary>
@@ -3548,7 +3542,7 @@ namespace WhatsAppBotAPi.Services
             var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.UploadMedia.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
             return await WhatsAppBusinessPostAsync<MediaUploadResponse>(formattedWhatsAppEndpoint, uploadMediaRequest.File, uploadMediaRequest.Type, cancellationToken, true);
         }
-        
+
         /// <summary>
         /// Upload Media: Image, Document, Audio, Video, Sticker
         /// </summary>
@@ -3565,7 +3559,7 @@ namespace WhatsAppBotAPi.Services
             var formattedWhatsAppEndpoint = WhatsAppBusinessRequestEndpoint.UploadMedia.Replace("{{Phone-Number-ID}}", _whatsAppConfig.WhatsAppBusinessPhoneNumberId);
             return WhatsAppBusinessPostAsync<MediaUploadResponse>(formattedWhatsAppEndpoint, uploadMediaDataRequest.FileName, uploadMediaDataRequest.Type, uploadMediaDataRequest.Data, cancellationToken, true).GetAwaiter().GetResult();
         }
-        
+
         /// <summary>
         /// Upload Media: Image, Document, Audio, Video, Sticker
         /// </summary>
@@ -3638,10 +3632,10 @@ namespace WhatsAppBotAPi.Services
             if (response.IsSuccessStatusCode)
             {
 #if NET5_0_OR_GREATER
-				using (var stream = await response.Content.ReadAsStreamAsync(cancellationToken))
-				{
-					result = await JsonSerializer.DeserializeAsync<T>(stream, cancellationToken: cancellationToken);
-				}
+                using (var stream = await response.Content.ReadAsStreamAsync(cancellationToken))
+                {
+                    result = await JsonSerializer.DeserializeAsync<T>(stream, cancellationToken: cancellationToken);
+                }
 #endif
 #if NETSTANDARD2_0_OR_GREATER
                 using (var stream = await response.Content.ReadAsStreamAsync())
@@ -3649,16 +3643,16 @@ namespace WhatsAppBotAPi.Services
 					result = await JsonSerializer.DeserializeAsync<T>(stream, cancellationToken: cancellationToken);
 				}
 #endif
-			}
-			else
+            }
+            else
             {
                 WhatsAppErrorResponse whatsAppErrorResponse = new WhatsAppErrorResponse();
 #if NET5_0_OR_GREATER
-				using (var stream = await response.Content.ReadAsStreamAsync(cancellationToken))
-				{
-					whatsAppErrorResponse = await JsonSerializer.DeserializeAsync<WhatsAppErrorResponse>(stream, cancellationToken: cancellationToken);
-				}
-				throw new WhatsAppBotAPiException(new HttpRequestException(whatsAppErrorResponse.Error.Message), response.StatusCode, whatsAppErrorResponse);
+                using (var stream = await response.Content.ReadAsStreamAsync(cancellationToken))
+                {
+                    whatsAppErrorResponse = await JsonSerializer.DeserializeAsync<WhatsAppErrorResponse>(stream, cancellationToken: cancellationToken);
+                }
+                throw new WhatsAppBotAPiException(new HttpRequestException(whatsAppErrorResponse.Error.Message), response.StatusCode, whatsAppErrorResponse);
 #endif
 #if NETSTANDARD2_0_OR_GREATER
                 using (var stream = await response.Content.ReadAsStreamAsync())
@@ -3667,8 +3661,8 @@ namespace WhatsAppBotAPi.Services
 				}
                 throw new WhatsAppBotAPiException(new HttpRequestException(whatsAppErrorResponse.Error.Message), response.StatusCode, whatsAppErrorResponse);
 #endif
-			}
-			return result;
+            }
+            return result;
         }
 
         /// <summary>
@@ -3685,7 +3679,7 @@ namespace WhatsAppBotAPi.Services
             {
                 _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _whatsAppConfig.AccessToken);
             }
-            
+
             T result = new();
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -3694,10 +3688,10 @@ namespace WhatsAppBotAPi.Services
             if (response.IsSuccessStatusCode)
             {
 #if NET5_0_OR_GREATER
-				using (var stream = await response.Content.ReadAsStreamAsync(cancellationToken))
-				{
-					result = await JsonSerializer.DeserializeAsync<T>(stream, cancellationToken: cancellationToken);
-				}
+                using (var stream = await response.Content.ReadAsStreamAsync(cancellationToken))
+                {
+                    result = await JsonSerializer.DeserializeAsync<T>(stream, cancellationToken: cancellationToken);
+                }
 #endif
 #if NETSTANDARD2_0_OR_GREATER
                 using (var stream = await response.Content.ReadAsStreamAsync())
@@ -3705,16 +3699,16 @@ namespace WhatsAppBotAPi.Services
 					result = await JsonSerializer.DeserializeAsync<T>(stream, cancellationToken: cancellationToken);
 				}
 #endif
-			}
-			else
+            }
+            else
             {
                 WhatsAppErrorResponse whatsAppErrorResponse = new WhatsAppErrorResponse();
 #if NET5_0_OR_GREATER
-				using (var stream = await response.Content.ReadAsStreamAsync(cancellationToken))
-				{
-					whatsAppErrorResponse = await JsonSerializer.DeserializeAsync<WhatsAppErrorResponse>(stream, cancellationToken: cancellationToken);
-				}
-				throw new WhatsAppBotAPiException(new HttpRequestException(whatsAppErrorResponse.Error.Message), response.StatusCode, whatsAppErrorResponse);
+                using (var stream = await response.Content.ReadAsStreamAsync(cancellationToken))
+                {
+                    whatsAppErrorResponse = await JsonSerializer.DeserializeAsync<WhatsAppErrorResponse>(stream, cancellationToken: cancellationToken);
+                }
+                throw new WhatsAppBotAPiException(new HttpRequestException(whatsAppErrorResponse.Error.Message), response.StatusCode, whatsAppErrorResponse);
 #endif
 #if NETSTANDARD2_0_OR_GREATER
                 using (var stream = await response.Content.ReadAsStreamAsync())
@@ -3723,8 +3717,8 @@ namespace WhatsAppBotAPi.Services
 				}
                 throw new WhatsAppBotAPiException(new HttpRequestException(whatsAppErrorResponse.Error.Message), response.StatusCode, whatsAppErrorResponse);
 #endif
-			}
-			return result;
+            }
+            return result;
         }
 
         /// <summary>
@@ -3738,7 +3732,7 @@ namespace WhatsAppBotAPi.Services
         /// <returns>Response object</returns>
         /// <exception cref="WhatsAppBotAPiException"></exception>
         private async Task<T> WhatsAppBusinessPostAsync<T>(string whatsAppBusinessEndpoint, string filePath, string fileContentType, CancellationToken cancellationToken = default, bool isMediaUpload = false) where T : new()
-        { 
+        {
             var file = new FileInfo(filePath);
 #if NET5_0_OR_GREATER
             var fileData = await File.ReadAllBytesAsync(filePath, cancellationToken);
@@ -3763,23 +3757,23 @@ namespace WhatsAppBotAPi.Services
         {
             if (!isMediaUpload) // Resumable upload
             {
-				_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("OAuth", _whatsAppConfig.AccessToken);
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("OAuth", _whatsAppConfig.AccessToken);
                 _httpClient.DefaultRequestHeaders.Add("file_offset", "0");
             }
             else
             {
-				_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _whatsAppConfig.AccessToken);
-			}
-            
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _whatsAppConfig.AccessToken);
+            }
+
             T result = new();
             cancellationToken.ThrowIfCancellationRequested();
 
             var boundary = $"----------{Guid.NewGuid():N}";
             var content = new MultipartFormDataContent(boundary);
 
-			HttpResponseMessage? response;
+            HttpResponseMessage? response;
 
-			if (isMediaUpload)
+            if (isMediaUpload)
             {
                 var mediaFileContent = new ByteArrayContent(fileData);
                 mediaFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
@@ -3797,29 +3791,29 @@ namespace WhatsAppBotAPi.Services
                 content.Add(mediaFileContent);
                 content.Add(new StringContent(fileValues.messaging_product), "messaging_product");
 
-				response = await _httpClient.PostAsync(whatsAppBusinessEndpoint, content, cancellationToken).ConfigureAwait(false);
-			}
+                response = await _httpClient.PostAsync(whatsAppBusinessEndpoint, content, cancellationToken).ConfigureAwait(false);
+            }
             else // Resumable upload
             {
-				var mediaFileContent = new ByteArrayContent(fileData);
+                var mediaFileContent = new ByteArrayContent(fileData);
 
                 var requestMessage = new HttpRequestMessage();
                 requestMessage.Method = HttpMethod.Post;
                 requestMessage.Content = mediaFileContent;
                 requestMessage.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
 
-				requestMessage.RequestUri = new Uri($"{_httpClient.BaseAddress}{whatsAppBusinessEndpoint}");
+                requestMessage.RequestUri = new Uri($"{_httpClient.BaseAddress}{whatsAppBusinessEndpoint}");
 
-				response = await _httpClient.SendAsync(requestMessage, cancellationToken).ConfigureAwait(false);
-			}
+                response = await _httpClient.SendAsync(requestMessage, cancellationToken).ConfigureAwait(false);
+            }
 
-			if (response.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)
             {
 #if NET5_0_OR_GREATER
-				using (var stream = await response.Content.ReadAsStreamAsync(cancellationToken))
-				{
-					result = await JsonSerializer.DeserializeAsync<T>(stream, cancellationToken: cancellationToken);
-				}
+                using (var stream = await response.Content.ReadAsStreamAsync(cancellationToken))
+                {
+                    result = await JsonSerializer.DeserializeAsync<T>(stream, cancellationToken: cancellationToken);
+                }
 #endif
 #if NETSTANDARD2_0_OR_GREATER
                 using (var stream = await response.Content.ReadAsStreamAsync())
@@ -3827,16 +3821,16 @@ namespace WhatsAppBotAPi.Services
 					result = await JsonSerializer.DeserializeAsync<T>(stream, cancellationToken: cancellationToken);
 				}
 #endif
-			}
-			else
+            }
+            else
             {
                 WhatsAppErrorResponse whatsAppErrorResponse = new WhatsAppErrorResponse();
 #if NET5_0_OR_GREATER
-				using (var stream = await response.Content.ReadAsStreamAsync(cancellationToken))
-				{
-					whatsAppErrorResponse = await JsonSerializer.DeserializeAsync<WhatsAppErrorResponse>(stream, cancellationToken: cancellationToken);
-				}
-				throw new WhatsAppBotAPiException(new HttpRequestException(whatsAppErrorResponse.Error.Message), response.StatusCode, whatsAppErrorResponse);
+                using (var stream = await response.Content.ReadAsStreamAsync(cancellationToken))
+                {
+                    whatsAppErrorResponse = await JsonSerializer.DeserializeAsync<WhatsAppErrorResponse>(stream, cancellationToken: cancellationToken);
+                }
+                throw new WhatsAppBotAPiException(new HttpRequestException(whatsAppErrorResponse.Error.Message), response.StatusCode, whatsAppErrorResponse);
 #endif
 #if NETSTANDARD2_0_OR_GREATER
                 using (var stream = await response.Content.ReadAsStreamAsync())
@@ -3845,8 +3839,8 @@ namespace WhatsAppBotAPi.Services
 				}
                 throw new WhatsAppBotAPiException(new HttpRequestException(whatsAppErrorResponse.Error.Message), response.StatusCode, whatsAppErrorResponse);
 #endif
-			}
-			return result;
+            }
+            return result;
         }
 
         private async Task<byte[]> WhatsAppBusinessGetAsync(string whatsAppBusinessEndpoint, string AppName = null, string version = null, CancellationToken cancellationToken = default)
@@ -3897,38 +3891,38 @@ namespace WhatsAppBotAPi.Services
 
             if (isCacheControlActive) // Resumable upload
             {
-				_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("OAuth", _whatsAppConfig.AccessToken);
-				_httpClient.DefaultRequestHeaders.CacheControl = new CacheControlHeaderValue
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("OAuth", _whatsAppConfig.AccessToken);
+                _httpClient.DefaultRequestHeaders.CacheControl = new CacheControlHeaderValue
                 {
                     NoCache = true,
                 };
-			}
+            }
 
             T result = new();
             cancellationToken.ThrowIfCancellationRequested();
 
-			HttpResponseMessage? response;
+            HttpResponseMessage? response;
 
             if (!isCacheControlActive)
             {
-				response = await _httpClient.GetAsync(whatsAppBusinessEndpoint, cancellationToken).ConfigureAwait(false);
-			}
+                response = await _httpClient.GetAsync(whatsAppBusinessEndpoint, cancellationToken).ConfigureAwait(false);
+            }
             else
             {
-				HttpRequestMessage requestMessage = new HttpRequestMessage();
-				requestMessage.Method = HttpMethod.Get;
-				requestMessage.RequestUri = new Uri($"{_httpClient.BaseAddress}{whatsAppBusinessEndpoint}");
+                HttpRequestMessage requestMessage = new HttpRequestMessage();
+                requestMessage.Method = HttpMethod.Get;
+                requestMessage.RequestUri = new Uri($"{_httpClient.BaseAddress}{whatsAppBusinessEndpoint}");
 
-				response = await _httpClient.SendAsync(requestMessage, cancellationToken).ConfigureAwait(false);
-			}
+                response = await _httpClient.SendAsync(requestMessage, cancellationToken).ConfigureAwait(false);
+            }
 
             if (response.IsSuccessStatusCode)
             {
 #if NET5_0_OR_GREATER
-				using (var stream = await response.Content.ReadAsStreamAsync(cancellationToken))
-				{
-					result = await JsonSerializer.DeserializeAsync<T>(stream, cancellationToken: cancellationToken);
-				}
+                using (var stream = await response.Content.ReadAsStreamAsync(cancellationToken))
+                {
+                    result = await JsonSerializer.DeserializeAsync<T>(stream, cancellationToken: cancellationToken);
+                }
 #endif
 #if NETSTANDARD2_0_OR_GREATER
                 using (var stream = await response.Content.ReadAsStreamAsync())
@@ -3936,16 +3930,16 @@ namespace WhatsAppBotAPi.Services
 					result = await JsonSerializer.DeserializeAsync<T>(stream, cancellationToken: cancellationToken);
 				}
 #endif
-			}
-			else
+            }
+            else
             {
                 WhatsAppErrorResponse whatsAppErrorResponse = new WhatsAppErrorResponse();
 #if NET5_0_OR_GREATER
-				using (var stream = await response.Content.ReadAsStreamAsync(cancellationToken))
-				{
-					whatsAppErrorResponse = await JsonSerializer.DeserializeAsync<WhatsAppErrorResponse>(stream, cancellationToken: cancellationToken);
-				}
-				throw new WhatsAppBotAPiException(new HttpRequestException(whatsAppErrorResponse.Error.Message), response.StatusCode, whatsAppErrorResponse);
+                using (var stream = await response.Content.ReadAsStreamAsync(cancellationToken))
+                {
+                    whatsAppErrorResponse = await JsonSerializer.DeserializeAsync<WhatsAppErrorResponse>(stream, cancellationToken: cancellationToken);
+                }
+                throw new WhatsAppBotAPiException(new HttpRequestException(whatsAppErrorResponse.Error.Message), response.StatusCode, whatsAppErrorResponse);
 #endif
 #if NETSTANDARD2_0_OR_GREATER
                 using (var stream = await response.Content.ReadAsStreamAsync())
@@ -3954,8 +3948,8 @@ namespace WhatsAppBotAPi.Services
 				}
                 throw new WhatsAppBotAPiException(new HttpRequestException(whatsAppErrorResponse.Error.Message), response.StatusCode, whatsAppErrorResponse);
 #endif
-			}
-			return result;
+            }
+            return result;
         }
 
         /// <summary>
@@ -3979,10 +3973,10 @@ namespace WhatsAppBotAPi.Services
             if (response.IsSuccessStatusCode)
             {
 #if NET5_0_OR_GREATER
-				using (var stream = await response.Content.ReadAsStreamAsync(cancellationToken))
-				{
-					result = await JsonSerializer.DeserializeAsync<T>(stream, cancellationToken: cancellationToken);
-				}
+                using (var stream = await response.Content.ReadAsStreamAsync(cancellationToken))
+                {
+                    result = await JsonSerializer.DeserializeAsync<T>(stream, cancellationToken: cancellationToken);
+                }
 #endif
 #if NETSTANDARD2_0_OR_GREATER
                 using (var stream = await response.Content.ReadAsStreamAsync())
@@ -3990,16 +3984,16 @@ namespace WhatsAppBotAPi.Services
 					result = await JsonSerializer.DeserializeAsync<T>(stream, cancellationToken: cancellationToken);
 				}
 #endif
-			}
-			else
+            }
+            else
             {
                 WhatsAppErrorResponse whatsAppErrorResponse = new WhatsAppErrorResponse();
 #if NET5_0_OR_GREATER
-				using (var stream = await response.Content.ReadAsStreamAsync(cancellationToken))
-				{
-					whatsAppErrorResponse = await JsonSerializer.DeserializeAsync<WhatsAppErrorResponse>(stream, cancellationToken: cancellationToken);
-				}
-				throw new WhatsAppBotAPiException(new HttpRequestException(whatsAppErrorResponse.Error.Message), response.StatusCode, whatsAppErrorResponse);
+                using (var stream = await response.Content.ReadAsStreamAsync(cancellationToken))
+                {
+                    whatsAppErrorResponse = await JsonSerializer.DeserializeAsync<WhatsAppErrorResponse>(stream, cancellationToken: cancellationToken);
+                }
+                throw new WhatsAppBotAPiException(new HttpRequestException(whatsAppErrorResponse.Error.Message), response.StatusCode, whatsAppErrorResponse);
 #endif
 #if NETSTANDARD2_0_OR_GREATER
                 using (var stream = await response.Content.ReadAsStreamAsync())
@@ -4008,8 +4002,8 @@ namespace WhatsAppBotAPi.Services
 				}
                 throw new WhatsAppBotAPiException(new HttpRequestException(whatsAppErrorResponse.Error.Message), response.StatusCode, whatsAppErrorResponse);
 #endif
-			}
-			return result;
+            }
+            return result;
         }
 
         /// <summary>
@@ -4033,10 +4027,10 @@ namespace WhatsAppBotAPi.Services
             if (response.IsSuccessStatusCode)
             {
 #if NET5_0_OR_GREATER
-				using (var stream = await response.Content.ReadAsStreamAsync(cancellationToken))
-				{
-					result = await JsonSerializer.DeserializeAsync<T>(stream, cancellationToken: cancellationToken);
-				}
+                using (var stream = await response.Content.ReadAsStreamAsync(cancellationToken))
+                {
+                    result = await JsonSerializer.DeserializeAsync<T>(stream, cancellationToken: cancellationToken);
+                }
 #endif
 #if NETSTANDARD2_0_OR_GREATER
                 using (var stream = await response.Content.ReadAsStreamAsync())
@@ -4044,16 +4038,16 @@ namespace WhatsAppBotAPi.Services
 					result = await JsonSerializer.DeserializeAsync<T>(stream, cancellationToken: cancellationToken);
 				}
 #endif
-			}
-			else
+            }
+            else
             {
                 WhatsAppErrorResponse whatsAppErrorResponse = new WhatsAppErrorResponse();
 #if NET5_0_OR_GREATER
-				using (var stream = await response.Content.ReadAsStreamAsync(cancellationToken))
-				{
-					whatsAppErrorResponse = await JsonSerializer.DeserializeAsync<WhatsAppErrorResponse>(stream, cancellationToken: cancellationToken);
-				}
-				throw new WhatsAppBotAPiException(new HttpRequestException(whatsAppErrorResponse.Error.Message), response.StatusCode, whatsAppErrorResponse);
+                using (var stream = await response.Content.ReadAsStreamAsync(cancellationToken))
+                {
+                    whatsAppErrorResponse = await JsonSerializer.DeserializeAsync<WhatsAppErrorResponse>(stream, cancellationToken: cancellationToken);
+                }
+                throw new WhatsAppBotAPiException(new HttpRequestException(whatsAppErrorResponse.Error.Message), response.StatusCode, whatsAppErrorResponse);
 #endif
 #if NETSTANDARD2_0_OR_GREATER
                 using (var stream = await response.Content.ReadAsStreamAsync())
@@ -4062,8 +4056,8 @@ namespace WhatsAppBotAPi.Services
 				}
                 throw new WhatsAppBotAPiException(new HttpRequestException(whatsAppErrorResponse.Error.Message), response.StatusCode, whatsAppErrorResponse);
 #endif
-			}
-			return result;
+            }
+            return result;
         }
-	}
+    }
 }

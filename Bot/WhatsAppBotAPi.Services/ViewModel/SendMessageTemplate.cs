@@ -1,7 +1,3 @@
-
-
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
@@ -60,8 +56,8 @@ namespace WhatsAppBotAPi.Services.SendMessageTemplate
 
     public record SendTextPayload
     {
-        [Required(ErrorMessage= "ToNum is required!")]  
-        public  string ToNum { get; set; }
+        [Required(ErrorMessage = "ToNum is required!")]
+        public string ToNum { get; set; }
         public string Message { get; set; } = "Hello";
         public bool PreviewUrl { get; set; } = false;
     }
@@ -93,7 +89,7 @@ namespace WhatsAppBotAPi.Services.SendMessageTemplate
         public WhatsAppMedia Media { get; set; }
         public WhatsappTemplate Template { get; set; }
     }
-	public class SendWhatsAppPizzaPayload
+    public class SendWhatsAppPizzaPayload
     {
         [Required(ErrorMessage = "ToNum is required!")]
         public string ToNum { get; set; }

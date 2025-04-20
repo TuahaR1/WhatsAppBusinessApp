@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WhatsAppBotAPi.Services.Interfaces;
+﻿using WhatsAppBotAPi.Services.Interfaces;
 using WhatsAppBotAPi.Services.Messages.Requests;
 using WhatsAppBotAPi.Services.Response;
 using WhatsAppBotAPi.Services.SendMessageTemplate;

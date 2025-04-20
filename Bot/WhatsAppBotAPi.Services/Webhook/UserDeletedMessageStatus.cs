@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace WhatsAppBotAPi.Services.Webhook
 {
@@ -25,5 +24,5 @@ namespace WhatsAppBotAPi.Services.Webhook
         [JsonPropertyName("title")]
         public string Title { get; set; }
     }
-    
+
 }

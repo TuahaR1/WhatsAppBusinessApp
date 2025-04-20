@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace WhatsAppBotAPi.Services
+﻿namespace WhatsAppBotAPi.Services
 {
     public static class WhatsAppBusinessRequestEndpoint
     {
@@ -176,5 +174,5 @@ namespace WhatsAppBotAPi.Services
         public static string GetConversationAutomation { get; private set; } = "{{Phone-Number-ID}}?fields=conversational_automation";
 
         public static string BlockUser { get; private set; } = "{{Phone-Number-ID}}/block_users";
-	}
+    }
 }

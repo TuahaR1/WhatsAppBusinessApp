@@ -16,16 +16,16 @@ namespace WhatsAppBotAPi.Services.Messages.Requests
         public string To { get; set; }
 
         [JsonPropertyName("type")]
-		[JsonInclude]
-		public string Type { get; private set; } = "audio";
+        [JsonInclude]
+        public string Type { get; private set; } = "audio";
 
         [JsonPropertyName("audio")]
         public MediaAudio Audio { get; set; }
 
-		[JsonPropertyName("biz_opaque_callback_data")]
+        [JsonPropertyName("biz_opaque_callback_data")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-		public string BizOpaqueCallbackData { get; set; }
-	}
+        public string BizOpaqueCallbackData { get; set; }
+    }
 
     public class MediaAudio
     {

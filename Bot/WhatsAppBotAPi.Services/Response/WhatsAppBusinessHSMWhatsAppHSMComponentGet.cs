@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace WhatsAppBotAPi.Services.Response
 {
@@ -23,22 +22,22 @@ namespace WhatsAppBotAPi.Services.Response
         [JsonPropertyName("type")]
         public string Type { get; set; }
 
-		[JsonPropertyName("buttons")]
-		public List<TemplateButton> Buttons { get; set; }
-	}
+        [JsonPropertyName("buttons")]
+        public List<TemplateButton> Buttons { get; set; }
+    }
 
     public class TemplateButton
     {
-		[JsonPropertyName("type")]
-		public string Type { get; set; }
+        [JsonPropertyName("type")]
+        public string Type { get; set; }
 
-		[JsonPropertyName("text")]
-		public string Text { get; set; }
+        [JsonPropertyName("text")]
+        public string Text { get; set; }
 
-		[JsonPropertyName("url")]
-		public string Url { get; set; }  // For URL type buttons
+        [JsonPropertyName("url")]
+        public string Url { get; set; }  // For URL type buttons
 
-		[JsonPropertyName("phone_number")]
-		public string PhoneNumber { get; set; }  // For PHONE_NUMBER type buttons
-	}
+        [JsonPropertyName("phone_number")]
+        public string PhoneNumber { get; set; }  // For PHONE_NUMBER type buttons
+    }
 }

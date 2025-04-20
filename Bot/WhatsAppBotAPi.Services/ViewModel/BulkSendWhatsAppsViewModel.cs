@@ -1,8 +1,8 @@
 ﻿
 namespace WhatsAppBotAPi.Services.ViewModel
 {
-	public class BulkSendWhatsAppsViewModel
-	{
-		
-	}
+    public class BulkSendWhatsAppsViewModel
+    {
+
+    }
 }

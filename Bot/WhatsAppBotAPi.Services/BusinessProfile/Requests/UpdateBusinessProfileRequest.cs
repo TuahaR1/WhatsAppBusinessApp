@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace WhatsAppBotAPi.Services.BusinessProfile.Requests
 {
@@ -24,8 +23,8 @@ namespace WhatsAppBotAPi.Services.BusinessProfile.Requests
         [JsonPropertyName("websites")]
         public List<string> Websites { get; set; }
 
-		[JsonPropertyName("profile_picture_handle")]
+        [JsonPropertyName("profile_picture_handle")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-		public string ProfilePictureHandle { get; set; }
-	}
+        public string ProfilePictureHandle { get; set; }
+    }
 }

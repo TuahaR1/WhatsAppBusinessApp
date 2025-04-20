@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace WhatsAppBotAPi.Services.Webhook
 {
     public class AudioMessage : GenericMessage
-    {        
+    {
 
         [JsonPropertyName("audio")]
         public Audio Audio { get; set; }
@@ -21,5 +20,5 @@ namespace WhatsAppBotAPi.Services.Webhook
         [JsonPropertyName("id")]
         public string Id { get; set; }
     }
-    
+
 }

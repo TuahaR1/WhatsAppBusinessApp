@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace WhatsAppBotAPi.Services.Response
+﻿namespace WhatsAppBotAPi.Services.Response
 {
     public class TemplateResponse : TemplateBaseResponse
     {

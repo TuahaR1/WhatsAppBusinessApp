@@ -1,14 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
-
-namespace WhatsAppBotAPi.Services.Webhook
+﻿namespace WhatsAppBotAPi.Services.Webhook
 {
-    
 
-    public class BusinessReplyToUserStatus:GenericStatus
+
+    public class BusinessReplyToUserStatus : GenericStatus
     {
-    
-    }    
 
-    
+    }
+
+
 }

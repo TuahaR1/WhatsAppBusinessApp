@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using WhatsAppBotAPi.Services.Response;
 
 namespace WhatsAppBotAPi.Services.Exceptions

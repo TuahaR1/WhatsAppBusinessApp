@@ -19,10 +19,10 @@ namespace WhatsAppBotAPi.Services.Messages.Requests
         [JsonPropertyName("document")]
         public MediaDocument Document { get; set; }
 
-		[JsonPropertyName("biz_opaque_callback_data")]
+        [JsonPropertyName("biz_opaque_callback_data")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-		public string BizOpaqueCallbackData { get; set; }
-	}
+        public string BizOpaqueCallbackData { get; set; }
+    }
 
     public class MediaDocument
     {

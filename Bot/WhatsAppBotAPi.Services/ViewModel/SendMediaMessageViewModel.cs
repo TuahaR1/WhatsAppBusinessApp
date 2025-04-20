@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace WhatsAppBotAPi.Services.ViewModel
+﻿namespace WhatsAppBotAPi.Services.ViewModel
 {
     public class SendMediaMessageViewModel
     {

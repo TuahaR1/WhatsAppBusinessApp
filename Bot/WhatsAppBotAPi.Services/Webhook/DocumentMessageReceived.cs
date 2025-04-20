@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace WhatsAppBotAPi.Services.Webhook
 {
@@ -7,7 +6,7 @@ namespace WhatsAppBotAPi.Services.Webhook
     /// When a message with media is received, the WhatsApp Business API downloads the media. A notification is sent to your Webhook once the media is downloaded.
     /// The Webhook notification contains information that identifies the media object and enables you to find and retrieve the object. Use the media endpoints to retrieve the media.
     /// </summary>
-    
+
 
     public class DocumentMessage : GenericMessage
     {
@@ -36,5 +35,5 @@ namespace WhatsAppBotAPi.Services.Webhook
         [JsonPropertyName("id")]
         public string Id { get; set; }
     }
-    
+
 }

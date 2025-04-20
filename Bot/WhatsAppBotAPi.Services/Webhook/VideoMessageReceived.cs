@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace WhatsAppBotAPi.Services.Webhook
 {
@@ -9,7 +8,7 @@ namespace WhatsAppBotAPi.Services.Webhook
     /// </summary>
 
     public class VideoMessage : GenericMessage
-    {        
+    {
 
         [JsonPropertyName("video")]
         public Video Video { get; set; }
@@ -35,6 +34,6 @@ namespace WhatsAppBotAPi.Services.Webhook
         [JsonPropertyName("id")]
         public string Id { get; set; }
     }
-    
+
 }
 

@@ -11,9 +11,9 @@
 
         public static class ConversationGranularity
         {
-			public const string HALF_HOUR = "HALF_HOUR";
-			public const string DAILY = "DAILY";
-			public const string MONTHLY = "MONTHLY";
-		}
+            public const string HALF_HOUR = "HALF_HOUR";
+            public const string DAILY = "DAILY";
+            public const string MONTHLY = "MONTHLY";
+        }
     }
 }

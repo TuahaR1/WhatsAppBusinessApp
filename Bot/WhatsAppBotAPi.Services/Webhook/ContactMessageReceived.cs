@@ -1,15 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace WhatsAppBotAPi.Services.Webhook
 {
     /// <summary>
     /// A contact message you received from a customer
     /// </summary>
-    
-    
 
-    public class ContactMessage: GenericMessage
+
+
+    public class ContactMessage : GenericMessage
     {
         [JsonPropertyName("contacts")]
         public List<MessageContact> Contacts { get; set; }

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace WhatsAppBotAPi.Services.Webhook
 {
@@ -7,7 +6,7 @@ namespace WhatsAppBotAPi.Services.Webhook
     /// A reaction message you received from a customer
     /// </summary>      
 
-    public class ReactionMessage:GenericMessage
+    public class ReactionMessage : GenericMessage
     {
         [JsonPropertyName("reaction")]
         public ReactionMessageText Reaction { get; set; }
@@ -22,5 +21,5 @@ namespace WhatsAppBotAPi.Services.Webhook
         public string Emoji { get; set; }
     }
 
-    
+
 }

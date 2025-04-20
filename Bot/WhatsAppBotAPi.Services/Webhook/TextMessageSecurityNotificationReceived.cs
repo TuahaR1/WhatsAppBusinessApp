@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace WhatsAppBotAPi.Services.Webhook
 {
@@ -48,11 +47,11 @@ namespace WhatsAppBotAPi.Services.Webhook
         public List<TextMessageSecurityNotificationMessage> Messages { get; set; }
     }
 
-    
+
 
     public class TextMessageSecurityNotificationMessage : GenericMessage
     {
-    
+
 
         [JsonPropertyName("identity")]
         public Identity Identity { get; set; }

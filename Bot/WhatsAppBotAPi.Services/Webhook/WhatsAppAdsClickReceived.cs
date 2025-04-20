@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace WhatsAppBotAPi.Services.Webhook
-{ 
+{
 
-    public class WhatsAppAdsClickMessage:GenericMessage
+    public class WhatsAppAdsClickMessage : GenericMessage
     {
         [JsonPropertyName("referral")]
         public Referral Referral { get; set; }
@@ -48,5 +47,5 @@ namespace WhatsAppBotAPi.Services.Webhook
         [JsonPropertyName("body")]
         public string Body { get; set; }
     }
-    
+
 }

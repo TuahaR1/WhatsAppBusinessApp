@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using WhatsAppBotAPi.Services.AccountMigration.Requests;
+﻿using WhatsAppBotAPi.Services.AccountMigration.Requests;
 using WhatsAppBotAPi.Services.BlockUser.Requests;
 using WhatsAppBotAPi.Services.BusinessProfile.Requests;
 using WhatsAppBotAPi.Services.Configurations;
@@ -871,14 +867,14 @@ namespace WhatsAppBotAPi.Services.Interfaces
         /// <returns>WhatsAppResponse</returns>
         Task<WhatsAppResponse> SendSPMTemplateAsync(SingleProductTemplateMessageRequest singleProductTemplateMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default);
 
-		/// <summary>
-		/// Send SPM Template Message
-		/// </summary>
-		/// <param name="singleProductTemplateMessageRequest">SingleProductTemplateMessageRequest object</param>
-		/// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>WhatsAppResponse</returns>
-		WhatsAppResponse SendSPMTemplate(SingleProductTemplateMessageRequest singleProductTemplateMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Send SPM Template Message
+        /// </summary>
+        /// <param name="singleProductTemplateMessageRequest">SingleProductTemplateMessageRequest object</param>
+        /// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>WhatsAppResponse</returns>
+        WhatsAppResponse SendSPMTemplate(SingleProductTemplateMessageRequest singleProductTemplateMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Send Catalog Template Message
@@ -1042,29 +1038,29 @@ namespace WhatsAppBotAPi.Services.Interfaces
         /// <returns>WhatsAppResponse</returns>
         WhatsAppResponse SendLocationRequestMessage(InteractiveLocationMessageRequest interactiveLocationMessageRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default);
 
-		/// <summary>
-		/// Send Template Message based on parameters
-		/// </summary>
-		/// <param name="recipientPhoneNumber">Recipient Phone Number</param>
-		/// <param name="templateName">Name of the template</param>
-		/// <param name="languageCode">Language Code of the template</param>
-		/// <param name="components">Components for the template</param>
-		/// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>WhatsAppResponse</returns>
-		Task<WhatsAppResponse> SendTemplateMessageAsync(string recipientPhoneNumber, string templateName, string languageCode, TemplateComponent[] components = null, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Send Template Message based on parameters
+        /// </summary>
+        /// <param name="recipientPhoneNumber">Recipient Phone Number</param>
+        /// <param name="templateName">Name of the template</param>
+        /// <param name="languageCode">Language Code of the template</param>
+        /// <param name="components">Components for the template</param>
+        /// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>WhatsAppResponse</returns>
+        Task<WhatsAppResponse> SendTemplateMessageAsync(string recipientPhoneNumber, string templateName, string languageCode, TemplateComponent[] components = null, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default);
 
-		/// <summary>
-		/// Send Template Message based on parameters
-		/// </summary>
-		/// <param name="recipientPhoneNumber">Recipient Phone Number</param>
-		/// <param name="templateName">Name of the template</param>
-		/// <param name="languageCode">Language Code of the template</param>
-		/// <param name="components">Components for the template</param>
-		/// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>WhatsAppResponse</returns>
-		WhatsAppResponse SendTemplateMessage(string recipientPhoneNumber, string templateName, string languageCode, TemplateComponent[] components = null, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Send Template Message based on parameters
+        /// </summary>
+        /// <param name="recipientPhoneNumber">Recipient Phone Number</param>
+        /// <param name="templateName">Name of the template</param>
+        /// <param name="languageCode">Language Code of the template</param>
+        /// <param name="components">Components for the template</param>
+        /// <param name="cloudApiConfig">Custom WhatsAppConfig</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>WhatsAppResponse</returns>
+        WhatsAppResponse SendTemplateMessage(string recipientPhoneNumber, string templateName, string languageCode, TemplateComponent[] components = null, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default);
         #endregion
 
         #region Two step verification code function
@@ -1412,15 +1408,15 @@ namespace WhatsAppBotAPi.Services.Interfaces
         /// <returns>TemplateResponse</returns>
         Task<TemplateResponse> GetAllTemplatesAsync(string whatsAppBusinessAccountId, WhatsAppConfig? cloudApiConfig = null, string pagingUrl = null, CancellationToken cancellationToken = default);
 
-		/// <summary>
-		/// Get All templates for the whatsapp business account
-		/// </summary>
-		/// <param name="whatsAppBusinessAccountId">Whatsapp Business Account Id</param>
-		/// <param name="cloudApiConfig">Custom cloudapi config</param>
-		/// <param name="pagingUrl">Cursor paging url</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>TemplateResponse</returns>
-		TemplateResponse GetAllTemplates(string whatsAppBusinessAccountId, WhatsAppConfig? cloudApiConfig = null, string pagingUrl = null, CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Get All templates for the whatsapp business account
+        /// </summary>
+        /// <param name="whatsAppBusinessAccountId">Whatsapp Business Account Id</param>
+        /// <param name="cloudApiConfig">Custom cloudapi config</param>
+        /// <param name="pagingUrl">Cursor paging url</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>TemplateResponse</returns>
+        TemplateResponse GetAllTemplates(string whatsAppBusinessAccountId, WhatsAppConfig? cloudApiConfig = null, string pagingUrl = null, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Edit Message Template for update
@@ -1500,66 +1496,66 @@ namespace WhatsAppBotAPi.Services.Interfaces
 
         Task<ConversationalComponentResponse> GetConversationalMessageAsync(WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default);
 
-		#endregion
+        #endregion
 
-		#region BlockUser
-		/// <summary>
-		/// Use this endpoint to block a list of WhatsApp user numbers.
-		/// </summary>
-		/// <param name="blockUserRequest">Block User Request</param>
-		/// <param name="cloudApiConfig">Custom cloud api config</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>BlockUserResponse</returns>
-		BlockUserResponse BlockUser(BlockUserRequest blockUserRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default);
+        #region BlockUser
+        /// <summary>
+        /// Use this endpoint to block a list of WhatsApp user numbers.
+        /// </summary>
+        /// <param name="blockUserRequest">Block User Request</param>
+        /// <param name="cloudApiConfig">Custom cloud api config</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>BlockUserResponse</returns>
+        BlockUserResponse BlockUser(BlockUserRequest blockUserRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default);
 
-		/// <summary>
-		/// Use this endpoint to block a list of WhatsApp user numbers.
-		/// </summary>
-		/// <param name="blockUserRequest">Block User Request</param>
-		/// <param name="cloudApiConfig">Custom cloud api config</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>BlockUserResponse</returns>
-		Task<BlockUserResponse> BlockUserAsync(BlockUserRequest blockUserRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Use this endpoint to block a list of WhatsApp user numbers.
+        /// </summary>
+        /// <param name="blockUserRequest">Block User Request</param>
+        /// <param name="cloudApiConfig">Custom cloud api config</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>BlockUserResponse</returns>
+        Task<BlockUserResponse> BlockUserAsync(BlockUserRequest blockUserRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default);
 
-		/// <summary>
-		/// Use this endpoint to unblock a list of WhatsApp user numbers.
-		/// </summary>
-		/// <param name="blockUserRequest">Block User Request</param>
-		/// <param name="cloudApiConfig">Custom cloud api config</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>BlockUserResponse</returns>
-		BlockUserResponse UnblockUser(BlockUserRequest blockUserRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Use this endpoint to unblock a list of WhatsApp user numbers.
+        /// </summary>
+        /// <param name="blockUserRequest">Block User Request</param>
+        /// <param name="cloudApiConfig">Custom cloud api config</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>BlockUserResponse</returns>
+        BlockUserResponse UnblockUser(BlockUserRequest blockUserRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default);
 
-		/// <summary>
-		/// Use this endpoint to unblock a list of WhatsApp user numbers.
-		/// </summary>
-		/// <param name="blockUserRequest">Block User Request</param>
-		/// <param name="cloudApiConfig">Custom cloud api config</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>BlockUserResponse</returns>
-		Task<BlockUserResponse> UnblockUserAsync(BlockUserRequest blockUserRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Use this endpoint to unblock a list of WhatsApp user numbers.
+        /// </summary>
+        /// <param name="blockUserRequest">Block User Request</param>
+        /// <param name="cloudApiConfig">Custom cloud api config</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>BlockUserResponse</returns>
+        Task<BlockUserResponse> UnblockUserAsync(BlockUserRequest blockUserRequest, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default);
 
-		/// <summary>
-		/// Get a list of blocked users.
-		/// </summary>
-		/// <param name="limit"></param>
-		/// <param name="after"></param>
-		/// <param name="before"></param>
-		/// <param name="cloudApiConfig">Custom cloud api config</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>GetBlockedUserResponse</returns>
-		GetBlockedUserResponse GetBlockedUsers(int? limit = null, string after = null, string before = null, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Get a list of blocked users.
+        /// </summary>
+        /// <param name="limit"></param>
+        /// <param name="after"></param>
+        /// <param name="before"></param>
+        /// <param name="cloudApiConfig">Custom cloud api config</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>GetBlockedUserResponse</returns>
+        GetBlockedUserResponse GetBlockedUsers(int? limit = null, string after = null, string before = null, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default);
 
-		/// <summary>
-		/// Get a list of blocked users.
-		/// </summary>
-		/// <param name="limit"></param>
-		/// <param name="after"></param>
-		/// <param name="before"></param>
-		/// <param name="cloudApiConfig">Custom cloud api config</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>GetBlockedUserResponse</returns>
-		Task<GetBlockedUserResponse> GetBlockedUsersAsync(int? limit = null, string after = null, string before = null, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default);
-		#endregion
-	}
+        /// <summary>
+        /// Get a list of blocked users.
+        /// </summary>
+        /// <param name="limit"></param>
+        /// <param name="after"></param>
+        /// <param name="before"></param>
+        /// <param name="cloudApiConfig">Custom cloud api config</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>GetBlockedUserResponse</returns>
+        Task<GetBlockedUserResponse> GetBlockedUsersAsync(int? limit = null, string after = null, string before = null, WhatsAppConfig? cloudApiConfig = null, CancellationToken cancellationToken = default);
+        #endregion
+    }
 }

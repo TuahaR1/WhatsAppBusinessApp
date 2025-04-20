@@ -6,7 +6,7 @@ namespace WhatsAppBotAPi.Services.Media.Requests
     {
         [JsonPropertyName("messaging_product")]
         public string MessagingProduct { get; private set; } = "whatsapp";
-        
+
         /// <summary>
         /// Name of the file. For example: "file.jpg".
         /// </summary>

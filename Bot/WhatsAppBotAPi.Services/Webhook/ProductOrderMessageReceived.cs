@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace WhatsAppBotAPi.Services.Webhook
 {
 
-    public class ProductOrderMessageMessage:GenericMessage
-    {    
+    public class ProductOrderMessageMessage : GenericMessage
+    {
 
         [JsonPropertyName("order")]
         public Order Order { get; set; }
@@ -40,5 +39,5 @@ namespace WhatsAppBotAPi.Services.Webhook
         [JsonPropertyName("currency")]
         public string Currency { get; set; }
     }
-    
+
 }

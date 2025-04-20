@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace WhatsAppBotAPi.Services.Messages.Requests
 {
@@ -7,26 +6,26 @@ namespace WhatsAppBotAPi.Services.Messages.Requests
     {
         [JsonPropertyName("messaging_product")]
         [JsonInclude]
-		public string MessagingProduct { get; private set; } = "whatsapp";
+        public string MessagingProduct { get; private set; } = "whatsapp";
 
         [JsonPropertyName("recipient_type")]
-		[JsonInclude]
-		public string RecipientType { get; private set; } = "individual";
+        [JsonInclude]
+        public string RecipientType { get; private set; } = "individual";
 
         [JsonPropertyName("to")]
         public string To { get; set; }
 
         [JsonPropertyName("type")]
-		[JsonInclude]
-		public string Type { get; private set; } = "template";
+        [JsonInclude]
+        public string Type { get; private set; } = "template";
 
         [JsonPropertyName("template")]
         public LocationMessageTemplate Template { get; set; }
 
-		[JsonPropertyName("biz_opaque_callback_data")]
-		[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-		public string BizOpaqueCallbackData { get; set; }
-	}
+        [JsonPropertyName("biz_opaque_callback_data")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public string BizOpaqueCallbackData { get; set; }
+    }
 
     public class LocationMessageTemplate
     {
@@ -54,17 +53,17 @@ namespace WhatsAppBotAPi.Services.Messages.Requests
         [JsonPropertyName("type")]
         public string Type { get; set; }
 
-		[JsonPropertyName("parameter_name")]
+        [JsonPropertyName("parameter_name")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-		public string ParameterName { get; set; }
+        public string ParameterName { get; set; }
 
-		[JsonPropertyName("location")]
+        [JsonPropertyName("location")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-		public LocationDetails Location { get; set; }
+        public LocationDetails Location { get; set; }
 
         [JsonPropertyName("text")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-		public string Text { get; set; }
+        public string Text { get; set; }
     }
 
     public class LocationDetails

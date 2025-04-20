@@ -1,10 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Polly;
 using Polly.Extensions.Http;
-using System;
 using System.Net;
-using System.Net.Http;
-using System.Threading;
 using WhatsAppBotAPi.Services.Configurations;
 using WhatsAppBotAPi.Services.Interfaces;
 

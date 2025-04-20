@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace WhatsAppBotAPi.Services.Webhook
-{    
+{
 
     public class ListReplyButtonMessage : GenericMessage
     {
@@ -12,7 +11,7 @@ namespace WhatsAppBotAPi.Services.Webhook
         [JsonPropertyName("interactive")]
         public Interactive Interactive { get; set; }
     }
-    
+
 
     public partial class Interactive
     {
@@ -34,5 +33,5 @@ namespace WhatsAppBotAPi.Services.Webhook
         [JsonPropertyName("description")]
         public string Description { get; set; }
     }
-    
+
 }

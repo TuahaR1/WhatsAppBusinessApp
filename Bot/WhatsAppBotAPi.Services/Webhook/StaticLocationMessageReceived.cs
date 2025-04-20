@@ -1,13 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace WhatsAppBotAPi.Services.Webhook
 {
     /// <summary>
     /// A static location message you received from a customer.
     /// </summary>
-    public class LocationMessage:GenericMessage
-    {        
+    public class LocationMessage : GenericMessage
+    {
 
         [JsonPropertyName("location")]
         public Location Location { get; set; }

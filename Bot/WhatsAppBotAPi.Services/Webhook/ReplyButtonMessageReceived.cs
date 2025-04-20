@@ -1,21 +1,20 @@
-﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace WhatsAppBotAPi.Services.Webhook
 {
     /// <summary>
     /// When your customer clicks on a quick reply button in an interactive message template, a response is sent.
     /// </summary>
-    public class ReplyButtonMessage:GenericMessage
+    public class ReplyButtonMessage : GenericMessage
     {
         [JsonPropertyName("context")]
         public MessageContext Context { get; set; }
-        
+
 
         [JsonPropertyName("interactive")]
         public ReplyButtonMessageInteractive Interactive { get; set; }
     }
-    
+
 
     public class ReplyButtonMessageInteractive
     {

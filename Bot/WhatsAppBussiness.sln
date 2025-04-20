@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatsAppBotAPi.Services", "WhatsAppBotAPi.Services\WhatsAppBotAPi.Services.csproj", "{D456FCDC-89D3-4841-B535-DD1D3C64F4D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatsAppBotAPi", "..\..\..\source\repos\WhatsappWebApi\repo\WhatsApiBot2\WhatsAppBotAPi\WhatsAppBotAPi.csproj", "{A7872C8E-1E67-B290-C644-DDC688CD0D5A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatsAppBotAPi", "..\..\..\..\source\repos\WhatsappWebApi\repo\WhatsApiBot2\WhatsAppBotAPi\WhatsAppBotAPi.csproj", "{CDAC2E41-7A9B-9E32-5E4C-CE36B2BAADD6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{D456FCDC-89D3-4841-B535-DD1D3C64F4D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D456FCDC-89D3-4841-B535-DD1D3C64F4D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D456FCDC-89D3-4841-B535-DD1D3C64F4D9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A7872C8E-1E67-B290-C644-DDC688CD0D5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A7872C8E-1E67-B290-C644-DDC688CD0D5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A7872C8E-1E67-B290-C644-DDC688CD0D5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A7872C8E-1E67-B290-C644-DDC688CD0D5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDAC2E41-7A9B-9E32-5E4C-CE36B2BAADD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDAC2E41-7A9B-9E32-5E4C-CE36B2BAADD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDAC2E41-7A9B-9E32-5E4C-CE36B2BAADD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDAC2E41-7A9B-9E32-5E4C-CE36B2BAADD6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

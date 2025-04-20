@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace WhatsAppBotAPi.Services.Messages.Requests
 {
@@ -7,26 +6,26 @@ namespace WhatsAppBotAPi.Services.Messages.Requests
     {
         [JsonPropertyName("messaging_product")]
         [JsonInclude]
-		public string MessagingProduct { get; private set; } = "whatsapp";
+        public string MessagingProduct { get; private set; } = "whatsapp";
 
         [JsonPropertyName("recipient_type")]
-		[JsonInclude]
-		public string RecipientType { get; private set; } = "individual";
+        [JsonInclude]
+        public string RecipientType { get; private set; } = "individual";
 
         [JsonPropertyName("to")]
         public string To { get; set; }
 
         [JsonPropertyName("type")]
-		[JsonInclude]
-		public string Type { get; private set; } = "template";
+        [JsonInclude]
+        public string Type { get; private set; } = "template";
 
         [JsonPropertyName("template")]
         public TextMessageTemplate Template { get; set; }
 
-		[JsonPropertyName("biz_opaque_callback_data")]
+        [JsonPropertyName("biz_opaque_callback_data")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-		public string BizOpaqueCallbackData { get; set; }
-	}
+        public string BizOpaqueCallbackData { get; set; }
+    }
 
     public class TextMessageTemplate
     {
@@ -50,11 +49,11 @@ namespace WhatsAppBotAPi.Services.Messages.Requests
 
         [JsonPropertyName("sub_type")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-		public string SubType { get; set; }
+        public string SubType { get; set; }
 
         [JsonPropertyName("index")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-		public string Index { get; set; }
+        public string Index { get; set; }
     }
 
     public class TextMessageParameter
@@ -64,27 +63,27 @@ namespace WhatsAppBotAPi.Services.Messages.Requests
 
         [JsonPropertyName("parameter_name")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-		public string ParameterName { get; set; }
+        public string ParameterName { get; set; }
 
         [JsonPropertyName("image")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-		public TemplateImage Image { get; set; }
+        public TemplateImage Image { get; set; }
 
         [JsonPropertyName("text")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-		public string Text { get; set; }
+        public string Text { get; set; }
 
         [JsonPropertyName("currency")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-		public TemplateCurrency Currency { get; set; }
+        public TemplateCurrency Currency { get; set; }
 
         [JsonPropertyName("date_time")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-		public TemplateDateTime DateTime { get; set; }
+        public TemplateDateTime DateTime { get; set; }
 
         [JsonPropertyName("payload")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-		public string Payload { get; set; }
+        public string Payload { get; set; }
     }
 
     public class TemplateCurrency

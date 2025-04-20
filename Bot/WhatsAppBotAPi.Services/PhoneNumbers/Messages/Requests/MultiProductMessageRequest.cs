@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace WhatsAppBotAPi.Services.Messages.Requests
 {
@@ -7,26 +6,26 @@ namespace WhatsAppBotAPi.Services.Messages.Requests
     {
         [JsonPropertyName("messaging_product")]
         [JsonInclude]
-		public string MessagingProduct { get; private set; } = "whatsapp";
+        public string MessagingProduct { get; private set; } = "whatsapp";
 
         [JsonPropertyName("recipient_type")]
-		[JsonInclude]
-		public string RecipientType { get; private set; } = "individual";
+        [JsonInclude]
+        public string RecipientType { get; private set; } = "individual";
 
         [JsonPropertyName("to")]
         public string To { get; set; }
 
         [JsonPropertyName("type")]
-		[JsonInclude]
-		public string Type { get; private set; } = "interactive";
+        [JsonInclude]
+        public string Type { get; private set; } = "interactive";
 
         [JsonPropertyName("interactive")]
         public MultiProductInteractive Interactive { get; set; }
 
-		[JsonPropertyName("biz_opaque_callback_data")]
-		[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-		public string BizOpaqueCallbackData { get; set; }
-	}
+        [JsonPropertyName("biz_opaque_callback_data")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public string BizOpaqueCallbackData { get; set; }
+    }
 
     public class MultiProductInteractive
     {

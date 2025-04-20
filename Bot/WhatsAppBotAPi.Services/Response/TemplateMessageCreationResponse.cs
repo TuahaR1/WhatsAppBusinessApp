@@ -2,15 +2,15 @@
 
 namespace WhatsAppBotAPi.Services.Response
 {
-	public class TemplateMessageCreationResponse
-	{
-		[JsonPropertyName("id")]
-		public string Id { get; set; }
+    public class TemplateMessageCreationResponse
+    {
+        [JsonPropertyName("id")]
+        public string Id { get; set; }
 
-		[JsonPropertyName("status")]
-		public string Status { get; set; }
+        [JsonPropertyName("status")]
+        public string Status { get; set; }
 
-		[JsonPropertyName("category")]
-		public string Category { get; set; }
-	}
+        [JsonPropertyName("category")]
+        public string Category { get; set; }
+    }
 }

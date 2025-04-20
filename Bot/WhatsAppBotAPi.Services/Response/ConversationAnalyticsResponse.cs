@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace WhatsAppBotAPi.Services.Response
 {
@@ -8,9 +7,9 @@ namespace WhatsAppBotAPi.Services.Response
         [JsonPropertyName("conversation_analytics")]
         public ConversationAnalytics ConversationAnalytics { get; set; }
 
-		[JsonPropertyName("id")]
-		public string Id { get; set; }
-	}
+        [JsonPropertyName("id")]
+        public string Id { get; set; }
+    }
 
     public class ConversationAnalytics
     {

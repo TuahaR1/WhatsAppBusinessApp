@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace WhatsAppBotAPi.Services.Messages.Requests
 {
@@ -7,22 +6,22 @@ namespace WhatsAppBotAPi.Services.Messages.Requests
     {
         [JsonPropertyName("messaging_product")]
         [JsonInclude]
-		public string MessagingProduct { get; private set; } = "whatsapp";
+        public string MessagingProduct { get; private set; } = "whatsapp";
 
         [JsonPropertyName("to")]
         public string To { get; set; }
 
         [JsonPropertyName("type")]
-		[JsonInclude]
-		public string Type { get; private set; } = "contacts";
+        [JsonInclude]
+        public string Type { get; private set; } = "contacts";
 
         [JsonPropertyName("contacts")]
         public List<ContactData> Contacts { get; set; }
 
-		[JsonPropertyName("biz_opaque_callback_data")]
+        [JsonPropertyName("biz_opaque_callback_data")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-		public string BizOpaqueCallbackData { get; set; }
-	}
+        public string BizOpaqueCallbackData { get; set; }
+    }
 
     public class ContactData
     {
@@ -124,7 +123,7 @@ namespace WhatsAppBotAPi.Services.Messages.Requests
 
         [JsonPropertyName("wa_id")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-		public string WaId { get; set; }
+        public string WaId { get; set; }
     }
 
     public partial class Url
